@@ -1,0 +1,18 @@
+RUN_TAG: full_run
+MODE: FULL
+TOTAL RECORDS: 883
+PROCESSED: 883
+SKIPPED: 0
+ERRORS: 0
+FORMAT OK: 99.32%
+PA MATCH: 51.98%
+EA MATCH: 62.40%
+TRUNCATED: 0.11%
+AVG REWARD: 1.7504
+AVG PROMPT TOKENS: 1450.44
+
+ACTION ITEMS:
+- Nhiều mẫu không extract được program; siết format output.
+- Sai loại phép; cần thêm ví dụ/constraint về chọn operator.
+- Thiếu bước; nhấn mạnh decomposition nhiều bước.
+- Khung phép đúng nhưng sai số; kiểm tra parse số và execution trace.

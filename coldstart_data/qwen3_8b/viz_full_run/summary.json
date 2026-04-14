@@ -1,0 +1,28 @@
+{
+  "run_tag": "full_run",
+  "mode": "full",
+  "total_records": 883,
+  "processed": 883,
+  "skipped": 0,
+  "errors": 0,
+  "ea_match_count": 551,
+  "pa_match_count": 459,
+  "format_ok_count": 877,
+  "ea_rate_pct": 62.4,
+  "pa_rate_pct": 51.98,
+  "fmt_rate_pct": 99.32,
+  "truncated_count": 1,
+  "truncated_rate_pct": 0.11,
+  "skipped_rate_pct": 0.0,
+  "error_rate_pct": 0.0,
+  "avg_reward": 1.7504,
+  "median_reward": 2.8,
+  "avg_prompt_tokens": 1450.44,
+  "avg_abs_value_error": 220675352.429,
+  "action_items": [
+    "Nhiều mẫu không extract được program; siết format output.",
+    "Sai loại phép; cần thêm ví dụ/constraint về chọn operator.",
+    "Thiếu bước; nhấn mạnh decomposition nhiều bước.",
+    "Khung phép đúng nhưng sai số; kiểm tra parse số và execution trace."
+  ]
+}

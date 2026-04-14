@@ -1,0 +1,11 @@
+﻿main_op,total,ea,ea_rate
+greater,10,9,90.0
+table_average,19,15,78.94736842105263
+divide,322,254,78.88198757763976
+multiply,56,38,67.85714285714286
+subtract,359,239,66.57381615598887
+add,100,53,53.0
+table_sum,4,2,50.0
+table_max,7,0,0.0
+table_min,5,0,0.0
+exp,1,0,0.0

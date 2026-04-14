@@ -1,0 +1,18 @@
+{
+  "ts": "2026-04-14 18:30:49",
+  "run_tag": "full_run",
+  "last_processed_idx": 882,
+  "last_processed_global_idx": 882,
+  "last_processed_source_idx": 882,
+  "total_processed": 883,
+  "total_saved": 335,
+  "ea_count": 335,
+  "pa_count": 282,
+  "format_ok_count": 879,
+  "errors": 0,
+  "skipped": 0,
+  "ea_rate": 0.3793884484711212,
+  "pa_rate": 0.319365798414496,
+  "fmt_rate": 0.9954699886749717,
+  "completed": true
+}

@@ -1,0 +1,11 @@
+﻿main_op,total,ea,ea_rate
+divide,322,54,16.77018633540373
+multiply,56,8,14.285714285714285
+greater,10,1,10.0
+add,100,7,7.000000000000001
+subtract,359,23,6.406685236768802
+table_average,19,0,0.0
+table_max,7,0,0.0
+table_min,5,0,0.0
+table_sum,4,0,0.0
+exp,1,0,0.0
