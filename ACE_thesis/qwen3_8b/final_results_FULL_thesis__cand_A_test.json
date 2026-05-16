@@ -1,0 +1,67 @@
+{
+  "label": "CAND_A (composite-best)",
+  "total": 1147,
+  "EA": 0.6739,
+  "PA": 0.619,
+  "EA_PA_gap": 0.0549,
+  "None_rate": 0.0523,
+  "EA_correct": 773,
+  "PA_correct": 710,
+  "None_count": 60,
+  "bullets": 3,
+  "ea_by_steps": {
+    "1": [
+      654,
+      452
+    ],
+    "2": [
+      409,
+      285
+    ],
+    "5": [
+      19,
+      2
+    ],
+    "3": [
+      55,
+      31
+    ],
+    "4": [
+      10,
+      3
+    ]
+  },
+  "pa_by_steps": {
+    "1": [
+      654,
+      432
+    ],
+    "2": [
+      409,
+      258
+    ],
+    "5": [
+      19,
+      2
+    ],
+    "3": [
+      55,
+      15
+    ],
+    "4": [
+      10,
+      3
+    ]
+  },
+  "outcome_dist": {
+    "correct": 691,
+    "wrong_reasoning": 355,
+    "lucky_guess": 82,
+    "exec_mismatch": 19
+  },
+  "eval_time": 140.4,
+  "throughput": 9.14,
+  "run_name": "FULL_thesis__cand_A",
+  "playbook_file": "best_playbook_FULL_thesis.txt",
+  "source_step": "best_step"
+}

@@ -1,0 +1,13 @@
+## Numerical Strategies
+
+- [ns-00001] When calculating percentage change, use subtract(new_value, old_value), divide(#0, old_value) to ensure correct sign.
+- [ns-00002] When calculating interest expense, divide(rate, const_100), multiply(#0, notional_amount) to ensure correct magnitude.
+## Table Reading Rules
+
+## Program Generation
+
+- [pg-00001] When comparing performance or values, use greater(value1, value2) instead of subtract(value1, value2).
+- [pg-00002] When calculating total amounts over multiple years, use add(year1, year2), add(#0, year3), add(#1, year4) without extra operations.
+## Common Errors
+
+## Context Tips

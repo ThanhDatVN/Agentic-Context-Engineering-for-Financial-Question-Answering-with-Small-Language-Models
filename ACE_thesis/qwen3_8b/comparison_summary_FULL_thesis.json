@@ -1,0 +1,151 @@
+{
+  "current_run": "FULL_thesis",
+  "eval_dev_size": 883,
+  "eval_test_size": 1147,
+  "mode": "unified_dev_test_eval_all_candidates",
+  "candidates_evaluated": [
+    "FULL_thesis__cand_A"
+  ],
+  "winner": {
+    "run_name": "FULL_thesis__cand_A",
+    "label": "CAND_A (composite-best)",
+    "file": "best_playbook_FULL_thesis.txt",
+    "bullets": 3,
+    "dev": {
+      "EA": 0.6931,
+      "PA": 0.6161
+    },
+    "test": {
+      "EA": 0.6739,
+      "PA": 0.619
+    },
+    "gen_gap": {
+      "EA": -0.0192,
+      "PA": 0.0029
+    }
+  },
+  "all_candidates": {
+    "FULL_thesis__cand_A": {
+      "label": "CAND_A (composite-best)",
+      "file": "best_playbook_FULL_thesis.txt",
+      "bullets": 3,
+      "source_step": "best_step",
+      "dev": {
+        "EA": 0.6931,
+        "PA": 0.6161,
+        "gap": 0.077,
+        "None_rate": 0.0453,
+        "ea_by_steps": {
+          "1": [
+            523,
+            379
+          ],
+          "2": [
+            287,
+            203
+          ],
+          "4": [
+            14,
+            3
+          ],
+          "3": [
+            43,
+            24
+          ],
+          "5": [
+            16,
+            3
+          ]
+        },
+        "pa_by_steps": {
+          "1": [
+            523,
+            357
+          ],
+          "2": [
+            287,
+            171
+          ],
+          "4": [
+            14,
+            1
+          ],
+          "3": [
+            43,
+            11
+          ],
+          "5": [
+            16,
+            4
+          ]
+        },
+        "outcome_dist": {
+          "correct": 525,
+          "wrong_reasoning": 252,
+          "lucky_guess": 87,
+          "exec_mismatch": 19
+        }
+      },
+      "test": {
+        "EA": 0.6739,
+        "PA": 0.619,
+        "gap": 0.0549,
+        "None_rate": 0.0523,
+        "ea_by_steps": {
+          "1": [
+            654,
+            452
+          ],
+          "2": [
+            409,
+            285
+          ],
+          "5": [
+            19,
+            2
+          ],
+          "3": [
+            55,
+            31
+          ],
+          "4": [
+            10,
+            3
+          ]
+        },
+        "pa_by_steps": {
+          "1": [
+            654,
+            432
+          ],
+          "2": [
+            409,
+            258
+          ],
+          "5": [
+            19,
+            2
+          ],
+          "3": [
+            55,
+            15
+          ],
+          "4": [
+            10,
+            3
+          ]
+        },
+        "outcome_dist": {
+          "correct": 691,
+          "wrong_reasoning": 355,
+          "lucky_guess": 82,
+          "exec_mismatch": 19
+        }
+      },
+      "gen_gap": {
+        "EA": -0.0192,
+        "PA": 0.0029
+      }
+    }
+  }
+}

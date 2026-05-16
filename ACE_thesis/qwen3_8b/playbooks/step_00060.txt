@@ -1,0 +1,10 @@
+## Numerical Strategies
+
+- [ns-00001] When calculating percentage change, use subtract(new_value, old_value), divide(#0, old_value) to ensure correct sign.
+## Table Reading Rules
+
+## Program Generation
+
+## Common Errors
+
+## Context Tips

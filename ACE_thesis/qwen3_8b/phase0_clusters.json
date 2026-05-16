@@ -1,0 +1,248 @@
+{
+  "_doc": "R20 phase 0 cluster definitions, v3 — adds 4 synthetic clusters C13-C16 to address 4-5 step queries that previously all collapsed to C12_misc_other (~50% of training samples). Synthetic clusters derived from FinQA DSL canonical multi-step patterns. NO test contamination.",
+  "version": "r20_phase0_v3_with_synthetic_4_5step",
+  "n_clusters": 16,
+  "_methodology": {
+    "data_source": "FinQA paper + DSL specification + canonical pattern analysis",
+    "test_set_used": false,
+    "train_set_used": false,
+    "predictions_used": false,
+    "synthetic_clusters_added": ["C13", "C14", "C15", "C16"],
+    "synthetic_basis": "Decomposition of 4-5 step canonical patterns: weighted average, difference-of-differences, sum-then-percentage, generic 5+step chain"
+  },
+  "clusters": [
+    {
+      "id": "C1_pct_share_div",
+      "n_steps_gold": 1,
+      "first_op": "divide",
+      "question_kw_any": ["pct_share"],
+      "kw_regex": "what\\s+percent(age)?\\s+of|percent(age)?\\s+of\\s+(total|the)",
+      "lesson": "When question is 'what percent of X is Y' \u2192 use single divide(Y, X) only. Do NOT compute X-Y first. Do NOT multiply by const_100. Return decimal (0.41, not 41).",
+      "canonical_pattern": "divide(part, total)",
+      "top_wrong_patterns": [
+        "subtract(total, part), divide(#0, total)  # complement form (X-Y)/X instead of Y/X",
+        "divide(part, total), multiply(#0, const_100)  # adds unit conversion not asked",
+        "divide(total, part)  # numerator/denominator swap"
+      ]
+    },
+    {
+      "id": "C2_pct_change_2step",
+      "n_steps_gold": 2,
+      "first_op": "subtract",
+      "question_kw_any": ["pct_change"],
+      "kw_regex": "percent(age)?\\s+(change|increase|decrease|growth|decline)|rate\\s+of\\s+(return|growth|increase|decline)",
+      "lesson": "Percentage change: subtract(later_value, earlier_value), divide(#0, earlier_value). Order matters even if result is negative. Denominator MUST equal subtract's second argument (earlier value).",
+      "canonical_pattern": "subtract(new, old), divide(#0, old)",
+      "top_wrong_patterns": [
+        "subtract(old, new), divide(#0, old)  # subtract args swapped \u2192 wrong sign",
+        "subtract(new, old), divide(#0, new)  # wrong denominator (uses new instead of old)",
+        "divide(new, old)  # missing the subtract step (single divide only)"
+      ]
+    },
+    {
+      "id": "C3_difference_simple",
+      "n_steps_gold": 1,
+      "first_op": "subtract",
+      "question_kw_any": ["difference"],
+      "kw_regex": "net\\s+change|difference|change\\s+(in|from|between)|increase\\s+(in|from|by)|decrease\\s+(in|from|by)",
+      "lesson": "Question 'what was the change/difference/net change in X' \u2192 single subtract(later, earlier). Do NOT divide afterwards (that's percentage change, different question). Do NOT divide by const_1000000 unless context units differ from question units.",
+      "canonical_pattern": "subtract(later, earlier)",
+      "top_wrong_patterns": [
+        "subtract(later, earlier), divide(#0, earlier)  # added pct step not asked",
+        "subtract(later, earlier), divide(#0, const_1000000)  # spurious unit conversion",
+        "subtract(earlier, later)  # arg order swap \u2192 wrong sign"
+      ]
+    },
+    {
+      "id": "C4_value_lookup_subtract",
+      "n_steps_gold": 1,
+      "first_op": "subtract",
+      "question_kw_any": ["value_lookup", "misc"],
+      "kw_regex": "what\\s+(was|is)\\s+the\\s+(net\\s+|total\\s+)?(change|increase|decrease|growth)",
+      "lesson": "When question asks for net change/growth without 'percentage' or 'rate', return raw subtraction. No divide step.",
+      "canonical_pattern": "subtract(later, earlier)",
+      "top_wrong_patterns": [
+        "subtract(later, earlier), divide(#0, earlier)  # confused with pct change",
+        "subtract(later, earlier), divide(#0, const_1000000)  # wrong unit assumption"
+      ]
+    },
+    {
+      "id": "C5_ratio_simple",
+      "n_steps_gold": 1,
+      "first_op": "divide",
+      "question_kw_any": ["ratio"],
+      "kw_regex": "ratio\\s+of|proportion\\s+of",
+      "lesson": "Question 'what is the ratio of X to Y' \u2192 single divide(X, Y). Do NOT aggregate with add or table_sum if explicit values are given in context. Do NOT subtract first.",
+      "canonical_pattern": "divide(numerator, denominator)",
+      "top_wrong_patterns": [
+        "subtract(numerator, denominator), divide(#0, denominator)  # confused with pct change",
+        "add(a, b), add(c, d), divide(#0, #1)  # over-aggregates when explicit values given",
+        "divide(denominator, numerator)  # arg order swap"
+      ]
+    },
+    {
+      "id": "C6_unit_no_conversion",
+      "n_steps_gold": 1,
+      "first_op": "*",
+      "question_kw_any": ["*"],
+      "kw_regex": ".*",
+      "lesson": "Do NOT divide by const_1000000 unless question says 'in millions' AND context shows raw numbers. If context is already in millions/thousands and question asks 'in millions/thousands', the answer is direct. Trust that gold answer is in same unit as context unless conversion is explicitly required.",
+      "canonical_pattern": "<base_ops>  # no unit-conversion step",
+      "top_wrong_patterns": [
+        "<base_ops>, divide(#last, const_1000000)  # adds spurious millions conversion",
+        "<base_ops>, multiply(#last, const_100)  # adds spurious percent conversion"
+      ],
+      "trigger_check": "pred contains divide(#N, const_1000000) AND gold does NOT contain const_1000000"
+    },
+    {
+      "id": "C7_cumulative_const100",
+      "n_steps_gold": 2,
+      "first_op": "subtract",
+      "question_kw_any": ["cumul_return", "pct_change"],
+      "kw_regex": "cumulative\\s+(return|total)|five[\\s-]year|5[\\s-]year|return\\s+on.*?investment",
+      "lesson": "Cumulative return from base 100: subtract(final_index, const_100), divide(#0, const_100). Use const_100 literal name (not 100.00). For 'difference between two cumulative returns', use 4 ops: subtract(a, const_100), divide(#0, const_100), subtract(b, const_100), divide(#2, const_100), then subtract(#1, #3).",
+      "canonical_pattern": "subtract(idx, const_100), divide(#0, const_100)",
+      "top_wrong_patterns": [
+        "subtract(idx, 100.00), divide(#0, 100.00)  # uses literal 100 instead of const_100",
+        "subtract(idx, const_100)  # missing the divide step",
+        "divide(idx, const_100)  # wrong: skips subtract"
+      ]
+    },
+    {
+      "id": "C8_sub_div_2step_other",
+      "n_steps_gold": 2,
+      "first_op": "subtract",
+      "question_kw_any": ["pct_other"],
+      "kw_regex": "percent",
+      "lesson": "Generic 2-step percent calculation: identify the 'change/difference' value first, then divide by the base. Denominator equals subtract's second arg.",
+      "canonical_pattern": "subtract(a, b), divide(#0, b)",
+      "top_wrong_patterns": [
+        "subtract(a, b), divide(#0, b)  # correct shape but wrong values from context",
+        "subtract(a, b), divide(#0, a)  # wrong denominator choice"
+      ]
+    },
+    {
+      "id": "C9_sum_subtract_total",
+      "n_steps_gold": 1,
+      "first_op": "subtract",
+      "question_kw_any": ["total_sum"],
+      "kw_regex": "total\\s+(without|excluding|less|fair)|fair\\s+value\\s+of\\s+total",
+      "lesson": "When question says 'what would total be without/excluding X', use subtract(total, excluded_amount). Single step, no division.",
+      "canonical_pattern": "subtract(total, excluded)",
+      "top_wrong_patterns": [
+        "subtract(excluded, total)  # arg order swap",
+        "subtract(total, excluded), divide(#0, total)  # extra pct step not asked"
+      ]
+    },
+    {
+      "id": "C10_pct_change_3step_mul",
+      "n_steps_gold": 3,
+      "first_op": "subtract",
+      "question_kw_any": ["pct_change"],
+      "kw_regex": "percent.*from",
+      "lesson": "When pct change result needs multiplication: subtract(new, old), divide(#0, old), multiply(#1, factor). Only multiply if question explicitly asks 'percentage as integer' or unit conversion.",
+      "canonical_pattern": "subtract(new, old), divide(#0, old), multiply(#1, factor)",
+      "top_wrong_patterns": [
+        "subtract(new, old), divide(#0, old)  # missing multiply step",
+        "subtract(new, old), divide(#0, old), multiply(#1, const_100)  # const_100 may not be required"
+      ]
+    },
+    {
+      "id": "C11_average_general",
+      "n_steps_gold": 3,
+      "first_op": "add",
+      "question_kw_any": ["average"],
+      "kw_regex": "average\\s+of|mean\\s+of|averag(e|ing)",
+      "lesson": "Average of 3 values: add(v1, v2), add(#0, v3), divide(#1, const_3). NEVER add(#0, const_3) before dividing \u2014 that adds 1 to result. For 2 values: add(v1, v2), divide(#0, const_2). Match const_N to actual count.",
+      "canonical_pattern": "add(v1, v2), add(#0, v3), divide(#1, const_3)",
+      "top_wrong_patterns": [
+        "add(v1, v2), add(#0, const_3), divide(#1, const_3)  # buggy padding adds N to sum",
+        "add(v1, v2), divide(#0, const_3)  # missing third value",
+        "table_average(col, none)  # but column name not in context"
+      ]
+    },
+    {
+      "id": "C12_misc_other",
+      "n_steps_gold": 0,
+      "first_op": "*",
+      "question_kw_any": ["*"],
+      "kw_regex": ".*",
+      "lesson": "Catch-all for queries not matching above clusters. Use general FinQA DSL rules.",
+      "canonical_pattern": "",
+      "top_wrong_patterns": []
+    },
+    {
+      "id": "C13_multistep_weighted",
+      "n_steps_gold": 4,
+      "first_op": "multiply",
+      "question_kw_any": ["weighted_avg", "value_weighted"],
+      "kw_regex": "weighted|value-weighted|per\\s+unit|per\\s+share|product\\s+of",
+      "lesson": "4-step value-weighted aggregation: multiply each value by its weight, sum the products, divide by total weight. Pattern: multiply(v1, w1), multiply(v2, w2), add(#0, #1), divide(#2, total_weight). Use named operands not specific numbers.",
+      "canonical_pattern": "multiply(v1, w1), multiply(v2, w2), add(#0, #1), divide(#2, total_w)",
+      "top_wrong_patterns": [
+        "add(v1, v2), divide(#0, const_2)  # ignores weights, computes simple avg",
+        "multiply(v1, w1), divide(#0, total_w)  # missing 2nd multiply",
+        "multiply(v1, w1), multiply(v2, w2), add(#0, #1)  # missing final divide step"
+      ]
+    },
+    {
+      "id": "C14_multistep_subtract_chain",
+      "n_steps_gold": 4,
+      "first_op": "subtract",
+      "question_kw_any": ["diff_of_diff", "compare_changes"],
+      "kw_regex": "compared\\s+to|versus|vs\\.|difference\\s+between|change.*?versus",
+      "lesson": "4-step difference-of-differences: subtract(a1, a2), subtract(b1, b2), then subtract(#0, #1) for final delta OR divide(#0, #1) for ratio. Maintain consistent argument order across both subtractions (later, earlier).",
+      "canonical_pattern": "subtract(a1, a2), subtract(b1, b2), subtract(#0, #1) | divide(#0, #1)",
+      "top_wrong_patterns": [
+        "subtract(a1, a2), subtract(b2, b1), subtract(#0, #1)  # inconsistent arg order",
+        "subtract(a1, a2), divide(#0, a2)  # only 2-step, misses second comparison",
+        "subtract(a1, b1), subtract(a2, b2), subtract(#0, #1)  # wrong pairing"
+      ]
+    },
+    {
+      "id": "C15_multistep_aggregate",
+      "n_steps_gold": 4,
+      "first_op": "add",
+      "question_kw_any": ["sum_then_pct", "aggregate_then_op"],
+      "kw_regex": "total.*?(percent|ratio|share|proportion)|sum.*?(percent|ratio)|aggregate",
+      "lesson": "4-step aggregate-then-operate: add(a, b), add(#0, c), then divide(part, #1) or multiply(#1, factor). Sum first, then express ratio of part to total.",
+      "canonical_pattern": "add(a, b), add(#0, c), divide(part, #1), [optional 4th]",
+      "top_wrong_patterns": [
+        "add(a, b), divide(part, #0)  # missing third value in sum",
+        "add(a, b), add(#0, c), divide(#1, part)  # numerator/denominator swap"
+      ]
+    },
+    {
+      "id": "C16_multistep_5plus",
+      "n_steps_gold": 5,
+      "first_op": "*",
+      "question_kw_any": ["multistep_5plus"],
+      "kw_regex": ".*",
+      "lesson": "5+step queries combine two 2-step calculations with a final aggregation. Common: cumul-return-difference (subtract idx1 const_100, divide #0 const_100, subtract idx2 const_100, divide #2 const_100, subtract #1 #3). Or: pct-change comparison with final greater(). Use named operands. CRITICAL: at op position i, #N requires N < i.",
+      "canonical_pattern": "<2-step block A>, <2-step block B>, <combine #1 and #3>",
+      "top_wrong_patterns": [
+        "Producing only 4 steps  # under-decomposition",
+        "Reusing #N before computing it  # forward reference, invalid"
+      ]
+    }
+  ],
+  "matching_priority_order": [
+    "C7_cumulative_const100",
+    "C2_pct_change_2step",
+    "C10_pct_change_3step_mul",
+    "C8_sub_div_2step_other",
+    "C13_multistep_weighted",
+    "C14_multistep_subtract_chain",
+    "C15_multistep_aggregate",
+    "C1_pct_share_div",
+    "C5_ratio_simple",
+    "C11_average_general",
+    "C3_difference_simple",
+    "C4_value_lookup_subtract",
+    "C9_sum_subtract_total",
+    "C16_multistep_5plus",
+    "C6_unit_no_conversion",
+    "C12_misc_other"
+  ],
+  "_note_on_priority": "Synthetic 4-step clusters (C13/C14/C15) placed before 1-step clusters because n_steps=4 is more specific. C16 (5+step) placed before C6/C12 fallbacks. C6 effectively dead-letter (regex='.*' kept as documentation)."
+}

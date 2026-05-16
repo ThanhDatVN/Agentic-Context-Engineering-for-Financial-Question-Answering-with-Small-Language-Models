@@ -1,0 +1,68 @@
+{
+  "label": "CAND_A (composite-best)",
+  "total": 883,
+  "EA": 0.6931,
+  "PA": 0.6161,
+  "EA_PA_gap": 0.077,
+  "None_rate": 0.0453,
+  "EA_correct": 612,
+  "PA_correct": 544,
+  "None_count": 40,
+  "bullets": 3,
+  "ea_by_steps": {
+    "1": [
+      523,
+      379
+    ],
+    "2": [
+      287,
+      203
+    ],
+    "4": [
+      14,
+      3
+    ],
+    "3": [
+      43,
+      24
+    ],
+    "5": [
+      16,
+      3
+    ]
+  },
+  "pa_by_steps": {
+    "1": [
+      523,
+      357
+    ],
+    "2": [
+      287,
+      171
+    ],
+    "4": [
+      14,
+      1
+    ],
+    "3": [
+      43,
+      11
+    ],
+    "5": [
+      16,
+      4
+    ]
+  },
+  "outcome_dist": {
+    "correct": 525,
+    "wrong_reasoning": 252,
+    "lucky_guess": 87,
+    "exec_mismatch": 19
+  },
+  "eval_time": 108.7,
+  "throughput": 9.04,
+  "run_name": "FULL_thesis__cand_A",
+  "playbook_file": "best_playbook_FULL_thesis.txt",
+  "source_step": "best_step",
+  "playbook_path": "/content/drive/MyDrive/ACE_thesis/qwen3_8b/best_playbook_FULL_thesis.txt"
+}
