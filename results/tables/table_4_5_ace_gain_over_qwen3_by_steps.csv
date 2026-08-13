@@ -1,0 +1,6 @@
+gold_program_steps,examples,qwen3_execution_accuracy_pct,ace_execution_accuracy_pct,gain_points,thesis_observation
+1,522,65.97,70.69,4.72,Good
+2,289,64.81,70.93,6.12,Good
+3,43,32.56,48.84,16.28,Cliff reduced
+4,14,21.43,35.71,14.28,Wide CI
+5+,15,20.00,33.33,13.33,Wide CI

@@ -1,0 +1,43 @@
+repos:
+  - repo: local
+    hooks:
+      - id: ruff-check
+        name: Ruff lint
+        entry: ruff check src tests scripts
+        language: system
+        pass_filenames: false
+      - id: ruff-format
+        name: Ruff format check
+        entry: ruff format --check src tests scripts
+        language: system
+        pass_filenames: false
+      - id: unit-tests
+        name: CPU unit tests
+        entry: python -m unittest discover -s tests -v
+        language: system
+        pass_filenames: false
+      - id: clean-notebooks
+        name: Notebook structure and outputs are canonical
+        entry: python scripts/refactor_notebooks.py --check notebooks/01_qwen3_baseline.ipynb notebooks/02_ace_finqa.ipynb
+        language: system
+        pass_filenames: false
+      - id: stripped-notebooks
+        name: Notebook outputs are stripped
+        entry: python scripts/prepare_notebooks.py --check notebooks/01_qwen3_baseline.ipynb notebooks/02_ace_finqa.ipynb
+        language: system
+        pass_filenames: false
+      - id: result-consistency
+        name: Audited results, provenance, and transcriptions agree
+        entry: python scripts/check_consistency.py
+        language: system
+        pass_filenames: false
+      - id: historical-result-audit
+        name: Historical Git artifacts reproduce audited metrics
+        entry: python scripts/audit_historical_results.py
+        language: system
+        pass_filenames: false
+      - id: result-figures
+        name: Thesis-reported figures match CSV transcriptions
+        entry: python scripts/generate_result_figures.py --check
+        language: system
+        pass_filenames: false

@@ -1,0 +1,30 @@
+* text=auto
+
+.editorconfig text eol=lf
+.env.example text eol=lf
+.gitattributes text eol=lf
+.gitignore text eol=lf
+LICENSE text eol=lf
+*.cff text eol=lf
+*.lock text eol=lf
+*.py text eol=lf
+*.pyi text eol=lf
+*.md text eol=lf
+*.toml text eol=lf
+*.yaml text eol=lf
+*.yml text eol=lf
+*.json text eol=lf
+*.jsonl text eol=lf
+*.csv text eol=lf
+*.txt text eol=lf
+*.ipynb text eol=lf
+*.svg text eol=lf
+
+# The FinQA snapshots are large generated JSON documents; suppress noisy diffs.
+data/finqa/*.json text eol=lf -diff
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary

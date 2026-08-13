@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+.python-version
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+build/
+dist/
+*.egg-info/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+.secrets/
+
+# Editors and operating systems
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Generated experiment state
+/artifacts/*
+!/artifacts/.gitkeep
+/outputs/
+/runs/
+/checkpoints/
+/models/
+/wandb/
+/mlruns/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+*.gguf
+*.log
+*.tmp

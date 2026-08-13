@@ -1,0 +1,11 @@
+first_operation,examples,execution_accuracy_pct,thesis_observation
+greater,20,90.00,Strong binary comparison; small sample
+table_average,15,80.00,Clear pattern; small sample
+divide,399,61.65,Common operation; above average
+add,163,59.51,Near the baseline average
+multiply,66,59.09,Similar to addition
+subtract,457,58.86,Most common; operand order is a typical error
+table_sum,10,20.00,Row-name lookup is difficult; small sample
+table_max,10,0.00,No correct examples; very small sample
+table_min,4,0.00,No correct examples; very small sample
+exp,3,0.00,No correct examples; very small sample

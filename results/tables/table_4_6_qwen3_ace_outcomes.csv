@@ -1,0 +1,6 @@
+outcome,qwen3_count,qwen3_share_pct,ace_count,ace_share_pct
+correct,459,51.98,547,61.95
+lucky_guess,92,10.42,54,6.11
+execution_mismatch,12,1.36,8,0.91
+wrong_reasoning,264,29.90,197,22.31
+no_program,56,6.34,77,8.72

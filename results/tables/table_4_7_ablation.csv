@@ -1,0 +1,9 @@
+variant,execution_accuracy_pct,program_accuracy_pct,delta_ea_points,delta_pa_points
+Full ACE-FinQA,68.06,61.90,,
+A1: no cluster pipeline,64.80,58.10,-3.3,-3.8
+A2: no Verify-Iterate,65.00,56.70,-3.1,-5.2
+"A3: flat memory, no Tier 1/2",66.30,60.00,-1.8,-1.9
+A4: heuristic/harm instead of dev-EMA,65.80,57.50,-2.3,-4.4
+A5: two-layer Quality Gate,64.30,56.10,-3.8,-5.8
+A6: no role-based retrieval,66.50,59.70,-1.6,-2.2
+"A7: EA-only selection, no PA guard",68.30,55.70,0.2,-6.2

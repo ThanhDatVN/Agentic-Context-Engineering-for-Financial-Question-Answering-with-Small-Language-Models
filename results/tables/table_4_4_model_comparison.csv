@@ -1,0 +1,6 @@
+method,execution_accuracy_pct,program_accuracy_pct,delta_ea_vs_finqanet_points,delta_pa_vs_finqanet_points
+Qwen3-8B Eng-Prompt (FS-9),59.55,52.66,,
+FinQANet (RoBERTa-large),61.24,58.86,,
+ACE-FinQA,68.06,61.90,6.82,3.04
+FinQANet-Gold (oracle retriever),70.00,68.76,,
+Human Expert (CPA/MBA),91.16,87.49,,

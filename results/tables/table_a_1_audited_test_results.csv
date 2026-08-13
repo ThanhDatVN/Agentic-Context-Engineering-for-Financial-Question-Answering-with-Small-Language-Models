@@ -1,0 +1,5 @@
+metric_profile,method,split,total,execution_correct,program_correct,execution_accuracy_pct,program_accuracy_pct,evidence
+legacy-notebook,Qwen3-8B Eng-Prompt (FS-9),test,1147,683,604,59.55,52.66,historical retained prediction artifact
+legacy-notebook,ACE-FinQA,test,1147,773,710,67.39,61.90,historical retained prediction artifact
+strict-v1,Qwen3-8B Eng-Prompt (FS-9),test,1147,724,642,63.12,55.97,recomputed from historical predictions
+strict-v1,ACE-FinQA,test,1147,777,687,67.74,59.90,recomputed from historical predictions

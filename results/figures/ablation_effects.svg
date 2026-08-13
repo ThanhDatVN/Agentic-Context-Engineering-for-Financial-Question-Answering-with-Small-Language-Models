@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="700" viewBox="0 0 1120 700" role="img" aria-labelledby="title desc">
+  <title id="title">Thesis-reported ACE-FinQA ablation effects</title>
+  <desc id="desc">Transcription of Thesis Table 4.7; per-example ablation artifacts were not retained for independent recomputation.</desc>
+  <style>text{font-family:Inter,'Segoe UI',Arial,sans-serif}</style>
+  <rect x="0" y="0" width="1120" height="700" fill="#ffffff"/>
+  <text x="56" y="56" fill="#172033" font-size="28" font-weight="700">Thesis-reported ablation effects</text>
+  <text x="56" y="88" fill="#5f6b7a" font-size="16">Table 4.7 transcription · not independently recomputed</text>
+  <rect x="760" y="48" width="18" height="18" fill="#2563eb" rx="3"/>
+  <text x="787" y="63" fill="#172033" font-size="14">ΔEA</text>
+  <rect x="860" y="48" width="18" height="18" fill="#7c3aed" rx="3"/>
+  <text x="887" y="63" fill="#172033" font-size="14">ΔPA</text>
+  <line x1="205" y1="125" x2="205" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="205" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-7</text>
+  <line x1="310" y1="125" x2="310" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="310" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-6</text>
+  <line x1="415" y1="125" x2="415" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="415" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-5</text>
+  <line x1="520" y1="125" x2="520" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="520" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-4</text>
+  <line x1="625" y1="125" x2="625" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="625" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-3</text>
+  <line x1="730" y1="125" x2="730" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="730" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-2</text>
+  <line x1="835" y1="125" x2="835" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="835" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">-1</text>
+  <line x1="940" y1="125" x2="940" y2="610" stroke="#172033" stroke-width="1"/>
+  <text x="940" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">+0</text>
+  <line x1="1045" y1="125" x2="1045" y2="610" stroke="#d9e0e8" stroke-width="1"/>
+  <text x="1045" y="635" fill="#5f6b7a" font-size="12" text-anchor="middle">+1</text>
+  <text x="56" y="157" fill="#172033" font-size="14">no cluster pipeline</text>
+  <rect x="593.5" y="132" width="346.5" height="14" fill="#2563eb" rx="3"/>
+  <text x="585.5" y="144" fill="#2563eb" font-size="12" text-anchor="end" font-weight="700">-3.3</text>
+  <rect x="541" y="155" width="399" height="14" fill="#7c3aed" rx="3"/>
+  <text x="533" y="167" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-3.8</text>
+  <text x="56" y="225" fill="#172033" font-size="14">no Verify-Iterate</text>
+  <rect x="614.5" y="200" width="325.5" height="14" fill="#2563eb" rx="3"/>
+  <text x="606.5" y="212" fill="#2563eb" font-size="12" text-anchor="end" font-weight="700">-3.1</text>
+  <rect x="394" y="223" width="546" height="14" fill="#7c3aed" rx="3"/>
+  <text x="386" y="235" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-5.2</text>
+  <text x="56" y="293" fill="#172033" font-size="14">flat memory, no Tier 1/2</text>
+  <rect x="751" y="268" width="189" height="14" fill="#2563eb" rx="3"/>
+  <text x="743" y="280" fill="#2563eb" font-size="12" text-anchor="end" font-weight="700">-1.8</text>
+  <rect x="740.5" y="291" width="199.5" height="14" fill="#7c3aed" rx="3"/>
+  <text x="732.5" y="303" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-1.9</text>
+  <text x="56" y="361" fill="#172033" font-size="14">heuristic/harm instead of dev-EMA</text>
+  <rect x="698.5" y="336" width="241.5" height="14" fill="#2563eb" rx="3"/>
+  <text x="690.5" y="348" fill="#2563eb" font-size="12" text-anchor="end" font-weight="700">-2.3</text>
+  <rect x="478" y="359" width="462" height="14" fill="#7c3aed" rx="3"/>
+  <text x="470" y="371" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-4.4</text>
+  <text x="56" y="429" fill="#172033" font-size="14">two-layer Quality Gate</text>
+  <rect x="541" y="404" width="399" height="14" fill="#2563eb" rx="3"/>
+  <text x="533" y="416" fill="#2563eb" font-size="12" text-anchor="end" font-weight="700">-3.8</text>
+  <rect x="331" y="427" width="609" height="14" fill="#7c3aed" rx="3"/>
+  <text x="323" y="439" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-5.8</text>
+  <text x="56" y="497" fill="#172033" font-size="14">no role-based retrieval</text>
+  <rect x="772" y="472" width="168" height="14" fill="#2563eb" rx="3"/>
+  <text x="764" y="484" fill="#2563eb" font-size="12" text-anchor="end" font-weight="700">-1.6</text>
+  <rect x="709" y="495" width="231" height="14" fill="#7c3aed" rx="3"/>
+  <text x="701" y="507" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-2.2</text>
+  <text x="56" y="565" fill="#172033" font-size="14">EA-only selection, no PA guard</text>
+  <rect x="940" y="540" width="21" height="14" fill="#2563eb" rx="3"/>
+  <text x="969" y="552" fill="#2563eb" font-size="12" text-anchor="start" font-weight="700">+0.2</text>
+  <rect x="289" y="563" width="651" height="14" fill="#7c3aed" rx="3"/>
+  <text x="281" y="575" fill="#7c3aed" font-size="12" text-anchor="end" font-weight="700">-6.2</text>
+  <text x="660" y="675" fill="#5f6b7a" font-size="14" text-anchor="middle">Percentage-point change</text>
+</svg>

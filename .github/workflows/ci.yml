@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cpu:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Install package and development tools
+        run: uv sync --locked --extra dev
+      - name: Lint
+        run: uv run ruff check src tests scripts
+      - name: Check formatting
+        run: uv run ruff format --check src tests scripts
+      - name: Unit tests
+        run: uv run python -m unittest discover -s tests -v
+      - name: Verify notebook structure and cleanliness
+        run: |
+          uv run python scripts/refactor_notebooks.py --check notebooks/01_qwen3_baseline.ipynb notebooks/02_ace_finqa.ipynb
+          uv run python scripts/prepare_notebooks.py --check notebooks/01_qwen3_baseline.ipynb notebooks/02_ace_finqa.ipynb
+      - name: Check report and result consistency
+        run: |
+          uv run python scripts/check_consistency.py
+          uv run python scripts/audit_historical_results.py
+          uv run python scripts/generate_result_figures.py --check
+      - name: Validate repository data and stored artifacts
+        run: uv run ace-finqa verify-repo --data-dir data/finqa --results-dir results

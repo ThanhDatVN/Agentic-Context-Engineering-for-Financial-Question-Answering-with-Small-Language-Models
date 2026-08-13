@@ -1,0 +1,20 @@
+# Optional maintained GPU stack. The CPU-safe core has no runtime dependencies.
+# The Colab bootstrap cells in notebooks/ are authoritative because CUDA-specific
+# wheels and install order cannot be represented safely in a cross-platform lock.
+# Do not install this file into a CPU-only development environment.
+torch==2.8.0
+triton>=3.3.0
+xformers==0.0.32.post2
+unsloth==2025.10.11
+transformers==4.55.4
+trl==0.22.2
+vllm==0.10.2
+rank-bm25==0.2.2
+
+# Pin these packages in the manifest of any new publication run.
+numpy
+pandas
+matplotlib
+tqdm
+openai
+sentence-transformers

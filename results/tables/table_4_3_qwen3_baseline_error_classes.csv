@@ -1,0 +1,6 @@
+error_class,description
+missing_steps,"Omits one or more required operations, especially in 3+-step programs."
+extra_steps,Adds unnecessary operations to a problem that needs a shorter program.
+wrong_number,"Uses the correct reasoning structure but extracts the wrong year, row, or value."
+no_program,Produces no valid FinQA DSL program.
+sign/order_error,"Reverses subtraction operands or temporal order, producing the wrong sign."

@@ -1,6 +1,0 @@
-n_steps,total,correct,ea,source
-1,654,452,0.6911,test
-2,409,285,0.6968,test
-3,55,31,0.5636,test
-4,10,3,0.3000,test
-5,19,2,0.1053,test

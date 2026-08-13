@@ -1,0 +1,6 @@
+gold_program_steps,examples,execution_accuracy_pct,program_accuracy_pct,ea_pa_gap_points,thesis_observation
+1,654,59.79,56.27,3.52,Reference bucket
+2,409,63.08,54.28,8.80,Unusually high EA; wide gap
+3,55,52.73,18.18,34.55,PA collapse; many lucky guesses
+4,10,30.00,30.00,0.00,Cliff drop; small sample and wide CI
+5+,19,10.53,5.26,5.27,Nearly unsolved

@@ -1,0 +1,194 @@
+{
+  "schema": "ace-finqa.results-audit.v2",
+  "schema_version": 2,
+  "result_profile": "audited-multi-profile",
+  "audit_status": "thesis-errata-required",
+  "task": {
+    "dataset": "FinQA",
+    "split": "test",
+    "records": 1147,
+    "context_mode": "oracle_gold_inds",
+    "generator": "Qwen3-8B",
+    "final_inference_api_free": true
+  },
+  "primary_result": {
+    "label": "historical-artifact legacy notebook evaluation",
+    "metric_profile": "legacy-notebook",
+    "baseline": {
+      "name": "Qwen3-8B Eng-Prompt (FS-9)",
+      "execution_correct": 683,
+      "program_correct": 604,
+      "total": 1147,
+      "execution_accuracy_pct": 59.55,
+      "program_accuracy_pct": 52.66
+    },
+    "ace_finqa": {
+      "execution_correct": 773,
+      "program_correct": 710,
+      "total": 1147,
+      "execution_accuracy_pct": 67.39,
+      "program_accuracy_pct": 61.90
+    },
+    "improvement_over_baseline": {
+      "additional_execution_correct": 90,
+      "additional_program_correct": 106,
+      "execution_accuracy_points_from_raw_counts": 7.85,
+      "program_accuracy_points_from_raw_counts": 9.24
+    },
+    "improvement_over_finqanet_points": {
+      "execution_accuracy": 6.15,
+      "program_accuracy": 3.04
+    }
+  },
+  "strict_v1_recomputation": {
+    "label": "current CPU evaluator applied to the retained historical predictions",
+    "metric_profile": "strict-v1",
+    "notice": "This repository profile is not claimed to be bit-for-bit equivalent to the official FinQA evaluator.",
+    "baseline": {
+      "execution_correct": 724,
+      "program_correct": 642,
+      "total": 1147,
+      "execution_accuracy_pct": 63.12,
+      "program_accuracy_pct": 55.97
+    },
+    "ace_finqa": {
+      "execution_correct": 777,
+      "program_correct": 687,
+      "total": 1147,
+      "execution_accuracy_pct": 67.74,
+      "program_accuracy_pct": 59.90
+    },
+    "improvement_over_baseline": {
+      "additional_execution_correct": 53,
+      "additional_program_correct": 45,
+      "execution_accuracy_points_from_raw_counts": 4.62,
+      "program_accuracy_points_from_raw_counts": 3.92
+    }
+  },
+  "thesis_reported": {
+    "source": {
+      "document": "docs/thesis.pdf",
+      "chapter": 4,
+      "primary_table": "4.4"
+    },
+    "status": "transcribed-not-verified",
+    "baseline": {
+      "execution_accuracy_pct": 59.55,
+      "program_accuracy_pct": 52.66
+    },
+    "ace_finqa": {
+      "execution_accuracy_pct": 68.06,
+      "program_accuracy_pct": 61.90
+    },
+    "improvement_over_baseline_points": {
+      "execution_accuracy": 8.51,
+      "program_accuracy": 9.24
+    },
+    "improvement_over_finqanet_points": {
+      "execution_accuracy": 6.82,
+      "program_accuracy": 3.04
+    }
+  },
+  "historical_evidence": {
+    "git_commit": "084446bce6b7b02ff29dc1db6df2f6d32a062974",
+    "dataset_sha256": "37a6e6e198b7821dc080f079d43a4a7a9d3a7b562803b7e97875bf70cd61fb08",
+    "files": {
+      "baseline_records": {
+        "path_at_commit": "thesis_baseline/qwen3_8b/viz_full_run/all_records.csv",
+        "git_blob_sha1": "704e58256e2e2ae9c085c29b3420027855bb1ea3",
+        "sha256": "69374fbb14d4ec15d76e274a58aef8b108738a939cb3902a24f20714803e1d8d"
+      },
+      "baseline_summary": {
+        "path_at_commit": "thesis_baseline/qwen3_8b/viz_full_run/summary.json",
+        "git_blob_sha1": "24a6cc9a675283be6266e694b3dc41c629a91584",
+        "sha256": "7546720f3019f7fcb27654d73d83105489561d14c0c1c612143e333a576ce99e"
+      },
+      "ace_records": {
+        "path_at_commit": "ACE_thesis/qwen3_8b/test_detail.jsonl",
+        "git_blob_sha1": "974907e0871677c4ae161f846309c58d70ca7540",
+        "sha256": "b2f31491d8b14b1bd449e3e175e35fe2232d813201fa4bc2fa67663500d1b573"
+      },
+      "ace_summary": {
+        "path_at_commit": "ACE_thesis/qwen3_8b/test_results.json",
+        "git_blob_sha1": "6f602005f5febea55655be4d84db350857a50469",
+        "sha256": "5645631a321275c3ff3b72fed946752a14dcb5445f113044d33366deec37c0aa"
+      },
+      "ace_run_metadata": {
+        "path_at_commit": "ACE_thesis/qwen3_8b/run_meta_FULL_thesis.json",
+        "git_blob_sha1": "c7080ddacb24ff1ef6a6fc898e87dfc10e056fab",
+        "sha256": "b78b1c541eebe75af564d2cacb1f67d1d35bf58a3ba61652505681cd5d6167b0"
+      },
+      "historical_ace_notebook": {
+        "path_at_commit": "ace_thesis1.ipynb",
+        "git_blob_sha1": "a57d59d4e544ab4568257e8c59e772bb82752447",
+        "sha256": "8155a7372e9493af2aaba0d8a4084d9f726d442424a5e189d3d7efb7f89ed7f7"
+      }
+    }
+  },
+  "observed_historical_run_configuration": {
+    "completed_epochs": 2,
+    "train_subset_size": 594,
+    "completed_steps": 780,
+    "reflector": "gpt-4o",
+    "max_verify_rounds": 5,
+    "verify_require_pa": false,
+    "generator_precision": "BF16 (historical notebook execution output)",
+    "context_length_tokens": 8192
+  },
+  "current_rerun_profile": {
+    "status": "cleaned notebook defaults; not the observed historical run",
+    "random_seed": 42,
+    "generator_temperature": 0.0,
+    "generator_quantization": "4-bit NF4",
+    "context_length_tokens": 4096,
+    "few_shot_examples": 9,
+    "evaluator": "FinQA round-to-5-decimals",
+    "reflector": "GPT-4o mini",
+    "reflector_temperature": 0.0,
+    "reflector_response_format": "JSON",
+    "verify_iterate_rounds": 3,
+    "verify_require_pa": true,
+    "training_examples_target": 600,
+    "training_epochs": 1,
+    "dev_lift_examples": 100,
+    "initial_playbook": "empty",
+    "warm_start": false,
+    "manual_playbook_editing": false,
+    "composite_ea_weight": 0.6,
+    "composite_pa_weight": 0.4,
+    "pa_guard_tolerance": 0.02
+  },
+  "known_inconsistencies": [
+    {
+      "id": "thesis-test-ea",
+      "finding": "The thesis labels 68.06% EA as a 1,147-example test result, but the retained test artifact records 773/1,147 = 67.39%. A two-decimal rate of 68.06% is not attainable from an integer numerator over 1,147."
+    },
+    {
+      "id": "thesis-outcome-split",
+      "finding": "Thesis Table 4.6 contains 883 outcomes. Its counts imply baseline 62.40% EA / 53.34% PA and ACE 68.06% EA / 62.85% PA, so it cannot substantiate the Table 4.4 test pair or the stated 8.51-point test gain."
+    },
+    {
+      "id": "thesis-complexity-aggregate",
+      "finding": "The displayed Table 4.5 bucket sizes and rates weight to 62.48% baseline EA and 68.52% ACE EA, not the Table 4.4 headline values."
+    },
+    {
+      "id": "reported-versus-observed-configuration",
+      "finding": "The retained run metadata and notebook outputs differ from the thesis-described/current cleaned configuration; exact historical reproduction therefore requires the observed metadata, not the current defaults alone."
+    }
+  ],
+  "tables": {
+    "audit-A.1": "tables/table_a_1_audited_test_results.csv",
+    "thesis-4.1": "tables/table_4_1_qwen3_baseline_by_steps.csv",
+    "thesis-4.2": "tables/table_4_2_qwen3_baseline_by_operator.csv",
+    "thesis-4.3": "tables/table_4_3_qwen3_baseline_error_classes.csv",
+    "thesis-4.4": "tables/table_4_4_model_comparison.csv",
+    "thesis-4.5": "tables/table_4_5_ace_gain_over_qwen3_by_steps.csv",
+    "thesis-4.6": "tables/table_4_6_qwen3_ace_outcomes.csv",
+    "thesis-4.7": "tables/table_4_7_ablation.csv"
+  },
+  "figures": {
+    "thesis_model_comparison": "figures/model_comparison.svg",
+    "thesis_complexity_gain": "figures/complexity_gain.svg",
+    "thesis_ablation_effects": "figures/ablation_effects.svg"
+  }
+}
