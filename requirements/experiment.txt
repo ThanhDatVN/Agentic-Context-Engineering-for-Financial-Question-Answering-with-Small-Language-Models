@@ -5,7 +5,7 @@
 torch==2.8.0
 triton>=3.3.0
 xformers==0.0.32.post2
-unsloth==2025.10.11
+unsloth==2026.8.12
 transformers==4.55.4
 trl==0.22.2
 vllm==0.10.2
