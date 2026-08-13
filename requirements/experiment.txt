@@ -3,7 +3,7 @@
 # wheels and install order cannot be represented safely in a cross-platform lock.
 # Do not install this file into a CPU-only development environment.
 torch==2.8.0
-triton>=3.3.0
+triton>=3.7.1
 xformers==0.0.32.post2
 unsloth==2025.10.11
 transformers==4.55.4
