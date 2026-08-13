@@ -91,7 +91,7 @@
   },
   "historical_evidence": {
     "git_commit": "084446bce6b7b02ff29dc1db6df2f6d32a062974",
-    "dataset_sha256": "37a6e6e198b7821dc080f079d43a4a7a9d3a7b562803b7e97875bf70cd61fb08",
+    "dataset_sha256": "831dbfb2e785dbc227f895ce3f24046433467aec67b09db2bd6ac7692a8a30dc",
     "files": {
       "baseline_records": {
         "path_at_commit": "thesis_baseline/qwen3_8b/viz_full_run/all_records.csv",

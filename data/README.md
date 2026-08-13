@@ -4,9 +4,9 @@ This directory contains the public FinQA split files used by the historical note
 
 | File | Examples | SHA-256 | Purpose |
 |---|---:|---|---|
-| [`finqa/train.json`](finqa/train.json) | 6,251 | `9862301c1a28f78bfb59050203bf66b13719c4720cd18291a069331b21c63352` | Playbook training/source examples |
-| [`finqa/dev.json`](finqa/dev.json) | 883 | `27cc6c57487bbaba73041f93dba831a39b1cabe999c2ec0ddebc6f1200ff85bd` | Selection and development evaluation |
-| [`finqa/test.json`](finqa/test.json) | 1,147 | `37a6e6e198b7821dc080f079d43a4a7a9d3a7b562803b7e97875bf70cd61fb08` | Retained test evaluation |
+| [`finqa/train.json`](finqa/train.json) | 6,251 | `49f237eb9779b569473b26b08048867d04635a7cc39ad6a7a5664c55bb428db6` | Playbook training/source examples |
+| [`finqa/dev.json`](finqa/dev.json) | 883 | `a847fb7e0d61a3125a1e2909852df6b89f1ee64d2c5ff1bf689e332214deee51` | Selection and development evaluation |
+| [`finqa/test.json`](finqa/test.json) | 1,147 | `831dbfb2e785dbc227f895ce3f24046433467aec67b09db2bd6ac7692a8a30dc` | Retained test evaluation |
 
 ## Provenance and terms
 
