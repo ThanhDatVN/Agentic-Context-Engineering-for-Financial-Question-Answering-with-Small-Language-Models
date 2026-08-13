@@ -4,7 +4,7 @@
 # Do not install this file into a CPU-only development environment.
 torch==2.8.0
 triton>=3.3.0
-xformers==0.0.32.post2
+xformers==0.0.35
 unsloth==2025.10.11
 transformers==4.55.4
 trl==0.22.2
