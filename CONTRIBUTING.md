@@ -1,6 +1,6 @@
 # Contributing
 
-Thank you for improving ACE-FinQA. Changes should keep the result audit reproducible, make evaluation semantics explicit, preserve thesis transcriptions without treating them as verified, and separate GPU/API experiments from CPU validation.
+Thank you for improving ACE-FinQA. Changes should keep the result record reproducible, make evaluation semantics explicit, keep the result tables faithful to the thesis, and separate GPU/API experiments from CPU validation.
 
 The repository is currently All Rights Reserved. This guide does not grant
 permission to copy, modify, or redistribute its original materials. Contact the
@@ -33,7 +33,7 @@ ace-finqa verify-repo --data-dir data/finqa --results-dir results
 
 ## Research changes
 
-- Treat `results/` as the reviewed audit record. Write new run artifacts to `outputs/` and replace audited values only after explicit review of raw counts, metric semantics, and provenance.
+- Treat `results/` as the reviewed result record. Write new run artifacts to `outputs/` and replace published values only after explicit review of raw counts, metric semantics, and provenance.
 - Record the Git commit, configuration, seeds, dataset checksums, model revision, dependency versions, hardware, timestamps, and metric implementation for every new run.
 - Name the context mode explicitly (`oracle`, `full`, or `retrieved`). Results that use FinQA `gold_inds` must be described as oracle-context results.
 - Distinguish API-assisted training from API-free inference.

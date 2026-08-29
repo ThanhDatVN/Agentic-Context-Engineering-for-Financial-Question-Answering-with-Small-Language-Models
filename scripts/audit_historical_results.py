@@ -156,7 +156,7 @@ def main() -> int:
     try:
         result = audit(args.root.resolve())
     except (KeyError, OSError, UnicodeError, ValueError, RuntimeError) as exc:
-        print(f"Historical result audit failed: {exc}")
+        print(f"Historical artifact verification failed: {exc}")
         return 1
     print(json.dumps(result, indent=2, ensure_ascii=False))
     return 0

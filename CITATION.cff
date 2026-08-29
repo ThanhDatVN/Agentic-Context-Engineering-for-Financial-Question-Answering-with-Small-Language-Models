@@ -10,9 +10,9 @@ repository-code: "https://github.com/ThanhDatVN/Agentic-Context-Engineering-for-
 url: "https://github.com/ThanhDatVN/Agentic-Context-Engineering-for-Financial-Question-Answering-with-Small-Language-Models"
 abstract: >-
   Research artifact evaluating Agentic Context Engineering with Qwen3-8B on
-  oracle-context FinQA program synthesis, including count-backed audited
-  results, thesis transcriptions with documented errata, a fail-closed DSL,
-  tests, and reproducibility documentation.
+  oracle-context FinQA program synthesis, including the reported results and
+  their raw counts, a fail-closed DSL, tests, and reproducibility
+  documentation.
 keywords:
   - agentic context engineering
   - financial question answering

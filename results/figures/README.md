@@ -1,4 +1,4 @@
-# Thesis-reported figures
+# Result figures
 
 These SVG charts are generated from the Chapter 4 CSV tables in [`../tables/`](../tables/) and contain no independently entered values. Regenerate them with `python scripts/generate_result_figures.py`.
 
@@ -13,4 +13,4 @@ python scripts/generate_result_figures.py
 python scripts/generate_result_figures.py --check
 ```
 
-Notebook-created figures are run diagnostics and are not part of the audited record.
+Notebook-created figures are run diagnostics and are not part of the published record.

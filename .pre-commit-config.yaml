@@ -27,17 +27,17 @@ repos:
         language: system
         pass_filenames: false
       - id: result-consistency
-        name: Audited results, provenance, and transcriptions agree
+        name: Reported results, provenance, and tables agree
         entry: python scripts/check_consistency.py
         language: system
         pass_filenames: false
       - id: historical-result-audit
-        name: Historical Git artifacts reproduce audited metrics
+        name: Retained Git artifacts match the recorded counts
         entry: python scripts/audit_historical_results.py
         language: system
         pass_filenames: false
       - id: result-figures
-        name: Thesis-reported figures match CSV transcriptions
+        name: Figures match their CSV tables
         entry: python scripts/generate_result_figures.py --check
         language: system
         pass_filenames: false

@@ -368,7 +368,7 @@ def _check_public_documents(root: Path, issues: list[str]) -> None:
         text = (root / relative).read_text(encoding="utf-8")
         for fragment in fragments:
             if fragment not in text:
-                issues.append(f"{relative}: missing audited disclosure {fragment!r}")
+                issues.append(f"{relative}: missing required disclosure {fragment!r}")
         if relative in {"docs/results.md", "results/report.md"}:
             table_start = text.find("FinQANet (RoBERTa-large)")
             table_start = text.rfind("Qwen3-8B", 0, table_start) if table_start >= 0 else -1

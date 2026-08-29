@@ -5,7 +5,7 @@
 This repository separates three different goals:
 
 1. **CPU validation** checks data shape, the fail-closed DSL implementation, prediction schemas, notebook cleanliness, and consistency of the thesis result record.
-2. **Result inspection** validates raw-count arithmetic, source hashes, and faithful transcription of the thesis tables.
+2. **Result inspection** validates raw-count arithmetic, source hashes, and the result tables against the thesis.
 3. **GPU experiment rerun** executes the Colab notebooks. Exact reproduction additionally requires immutable model revisions, a complete dependency lock, prompt/config hashes, and full environment metadata.
 
 ## CPU validation

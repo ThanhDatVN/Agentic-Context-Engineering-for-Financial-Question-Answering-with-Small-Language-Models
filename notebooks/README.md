@@ -11,7 +11,7 @@ Before execution, read [`docs/reproducibility.md`](../docs/reproducibility.md). 
 
 Experiment logic is organized into named sections. Large cells are split at safe top-level boundaries, configuration has one visible source of truth, and revision-history comments are removed. Code cells are capped at 320 lines because a few stateful functions cannot be split safely without a larger package refactor.
 
-Metrics produced inside a notebook are run diagnostics, not a second project result. The audited record is [`results/report.md`](../results/report.md). A new run may replace it only after preserving raw predictions and counts, declaring the metric profile, recording a complete manifest, and passing repository consistency checks.
+Metrics produced inside a notebook are run diagnostics, not a second project result. The published record is [`results/report.md`](../results/report.md). A new run may replace it only after preserving raw predictions and counts, declaring the metric profile, recording a complete manifest, and passing repository consistency checks.
 
 Before committing any notebook change:
 
