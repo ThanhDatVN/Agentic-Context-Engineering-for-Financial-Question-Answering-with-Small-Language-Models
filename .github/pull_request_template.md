@@ -7,7 +7,7 @@ Describe the problem and the proposed change.
 - [ ] CPU tests pass.
 - [ ] Ruff checks pass.
 - [ ] Notebook outputs and widget state are stripped.
-- [ ] Result changes include raw counts and provenance, keep metric profiles separate, and update the audit.
+- [ ] Result changes include raw counts and provenance, and keep the result tables, manifest, and documents in agreement.
 - [ ] No credentials, model weights, or generated checkpoints are included.
 
 ## Research impact

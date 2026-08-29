@@ -32,7 +32,7 @@ The bundled data is the public FinQA benchmark derived from financial reports. N
 - a `strict-v1` regression evaluator with an explicitly labelled metric profile;
 - immutable result policy and provenance checklist;
 - stripped notebooks, secret policy, and CPU CI;
-- disclosure of oracle context, API-assisted training, and unsupported claims;
+- disclosure of oracle context, API-assisted training, and evaluation scope;
 - human oversight and non-advice warnings.
 
 ## Known evidence gaps

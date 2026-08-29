@@ -36,7 +36,7 @@ The notebooks download or invoke Qwen/Unsloth model artifacts, PyTorch, Transfor
 
 ## OpenAI API
 
-The ACE-FinQA thesis uses GPT-4o mini as a training-time Reflector. Use of that service is governed by the applicable OpenAI terms and policies. No API key is included in this repository.
+ACE-FinQA uses an OpenAI model as a training-time Reflector: GPT-4o in the retained historical run, GPT-4o mini in the cleaned rerun notebooks. Use of that service is governed by the applicable OpenAI terms and policies. No API key is included in this repository.
 
 ## Thesis
 

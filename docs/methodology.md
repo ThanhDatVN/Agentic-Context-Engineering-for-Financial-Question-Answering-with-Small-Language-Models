@@ -16,7 +16,7 @@ Qwen3-8B receives the question, oracle context, system rules, nine few-shot exam
 
 When a training example fails, the Reflector analyzes the question, predicted program, execution result, gold program, diagnosis, and relevant playbook context. It proposes a general strategy bullet rather than a sample-specific solution.
 
-The thesis narrative describes GPT-4o mini at temperature 0 with JSON response mode as the training-time Reflector, and the cleaned rerun notebook uses that default. The retained historical run metadata instead records `gpt-4o`. Final inference does not use the API.
+The retained historical run records `gpt-4o` as the training-time Reflector; the cleaned rerun notebook defaults to GPT-4o mini at temperature 0 with JSON response mode. Both profiles are recorded in `results/manifest.json`. Final inference does not use the API.
 
 ### Curator
 
