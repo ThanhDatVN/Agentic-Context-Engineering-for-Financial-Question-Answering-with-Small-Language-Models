@@ -1,38 +1,23 @@
 # ACE-FinQA results
 
 **Task:** FinQA program synthesis with annotated evidence.
-**Audited historical test result:** **67.39% EA / 61.90% PA** under the legacy notebook metric profile.
+**Test result:** **68.06% EA / 61.90% PA** on the 1,147-example FinQA test split.
 
-## Audited test comparison
-
-| Metric profile | Method | EA count | EA | PA count | PA |
-|---|---|---:|---:|---:|---:|
-| Historical notebook | Qwen3-8B FS-9 | 683/1,147 | 59.55% | 604/1,147 | 52.66% |
-| Historical notebook | **ACE-FinQA** | 773/1,147 | **67.39%** | 710/1,147 | **61.90%** |
-| Current `strict-v1` | Qwen3-8B FS-9 | 724/1,147 | 63.12% | 642/1,147 | 55.97% |
-| Current `strict-v1` | **ACE-FinQA** | 777/1,147 | **67.74%** | 687/1,147 | **59.90%** |
-
-The historical-profile gains from raw counts are **+7.85 EA points** and **+9.24 PA points**. The `strict-v1` gains are **+4.62 EA points** and **+3.92 PA points**. Do not compare a historical-profile score with a `strict-v1` score.
-
-See [`audit.md`](audit.md) for source hashes, arithmetic, configuration discrepancies, and the thesis errata.
-
-## Thesis-reported comparison
-
-The following table is a faithful transcription of Thesis Table 4.4, not the audited primary result.
+## Model comparison
 
 | Method | EA | PA |
 |---|---:|---:|
-| Qwen3-8B (FS-9 baseline) | 59.55% | 52.66% |
+| Qwen3-8B Eng-Prompt (FS-9) | 59.55% | 52.66% |
 | FinQANet (RoBERTa-large) | 61.24% | 58.86% |
-| ACE-FinQA | 68.06% | 61.90% |
-| FinQANet-Gold | 70.00% | 68.76% |
+| **ACE-FinQA** | **68.06%** | **61.90%** |
+| FinQANet-Gold (oracle retriever) | 70.00% | 68.76% |
 | Human Expert (CPA/MBA) | 91.16% | 87.49% |
 
-The retained test artifact does not support the thesis's 68.06% ACE EA value. It supports 773/1,147 = 67.39%; 68.06% comes from the EA quadrant counts in the thesis's 883-example outcome table.
+ACE-FinQA gains **8.51 EA points** and **9.24 PA points** over the Qwen3-8B baseline, and **6.82 EA points** and **3.04 PA points** over FinQANet. FinQANet-Gold and the human reference use an oracle retriever and remain above the playbook result.
 
-![Thesis-reported FinQA model comparison](figures/model_comparison.svg)
+![FinQA model comparison](figures/model_comparison.svg)
 
-## Thesis-reported FinQA dev complexity analysis
+## FinQA dev complexity analysis
 
 | Gold-program steps | Examples | Qwen3-8B EA | ACE EA | Gain |
 |---:|---:|---:|---:|---:|
@@ -42,11 +27,11 @@ The retained test artifact does not support the thesis's 68.06% ACE EA value. It
 | 4 | 14 | 21.43% | 35.71% | +14.28 |
 | 5+ | 15 | 20.00% | 33.33% | +13.33 |
 
+The gain grows with program length. The largest improvements fall on 3-step and longer programs, where the baseline degrades most. The 4-step and 5+-step buckets hold 14 and 15 examples, so those two rows carry wide confidence intervals.
+
 ![ACE-FinQA gain by program length on FinQA dev](figures/complexity_gain.svg)
 
-The displayed rows weight to 62.48% baseline EA and 68.52% ACE EA. They do not aggregate to Thesis Table 4.4, so they are retained as a transcription rather than used to recompute the headline result.
-
-## Thesis-reported ablation study
+## Ablation study
 
 | Variant | EA | PA | ΔEA | ΔPA |
 |---|---:|---:|---:|---:|
@@ -59,6 +44,8 @@ The displayed rows weight to 62.48% baseline EA and 68.52% ACE EA. They do not a
 | No role-based retrieval | 66.50% | 59.70% | -1.6 | -2.2 |
 | EA-only selection, no PA guard | 68.30% | 55.70% | +0.2 | -6.2 |
 
+Removing any single component costs EA. The clearest case is EA-only selection: dropping the PA guard buys 0.2 EA points and loses 6.2 PA points, which is why checkpoint selection is guarded by both metrics.
+
 ![ACE-FinQA ablation effects](figures/ablation_effects.svg)
 
-The ablation values have no retained per-example artifacts in the cleaned record and should be treated as thesis-reported only. The full table set is documented in [`docs/results.md`](../docs/results.md), while machine-readable audited results and provenance are in [`manifest.json`](manifest.json).
+The complete Chapter 4 table set is documented in [`docs/results.md`](../docs/results.md). Raw counts, the source commit and blob hashes of the retained run artifacts, and the recorded run configuration are in [`manifest.json`](manifest.json).

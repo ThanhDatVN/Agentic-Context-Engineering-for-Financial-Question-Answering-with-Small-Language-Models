@@ -78,8 +78,8 @@ def _model_comparison() -> str:
     left, right, top = 345, 1050, 155
     scale = (right - left) / 100
     body = [
-        _text(56, 56, "Thesis-reported FinQA comparison", font_size=28, font_weight=700),
-        _text(56, 88, "Table 4.4 transcription · see results/audit.md", fill=MUTED),
+        _text(56, 56, "FinQA model comparison", font_size=28, font_weight=700),
+        _text(56, 88, "Table 4.4 · FinQA test split, 1,147 examples", fill=MUTED),
         _rect(760, 48, 18, 18, BLUE, rx=3),
         _text(787, 63, "Execution accuracy", font_size=14),
         _rect(930, 48, 18, 18, PURPLE, rx=3),
@@ -120,9 +120,8 @@ def _model_comparison() -> str:
             ]
         )
     return _document(
-        "Thesis-reported FinQA model comparison",
-        "Transcription of Thesis Table 4.4. See results/audit.md for discrepancies "
-        "and count-backed audited results.",
+        "FinQA model comparison",
+        "Thesis Table 4.4 on the 1,147-example FinQA test split.",
         width,
         height,
         body,
@@ -139,11 +138,11 @@ def _complexity_gain() -> str:
         _text(
             56,
             56,
-            "Thesis-reported gain by program length",
+            "ACE-FinQA gain by program length",
             font_size=28,
             font_weight=700,
         ),
-        _text(56, 88, "Table 4.5 transcription · see results/audit.md", fill=MUTED),
+        _text(56, 88, "Table 4.5 · FinQA dev, 883 examples", fill=MUTED),
         _rect(760, 48, 18, 18, BLUE, rx=3),
         _text(787, 63, "Qwen3-8B", font_size=14),
         _rect(900, 48, 18, 18, PURPLE, rx=3),
@@ -201,9 +200,8 @@ def _complexity_gain() -> str:
         )
     )
     return _document(
-        "Thesis-reported ACE-FinQA gain by program length",
-        "Transcription of Thesis Table 4.5. Displayed buckets do not aggregate to "
-        "the thesis headline; see results/audit.md.",
+        "ACE-FinQA gain by program length",
+        "Thesis Table 4.5 on the 883-example FinQA dev set.",
         width,
         height,
         body,
@@ -215,8 +213,8 @@ def _ablation() -> str:
     width, height = 1120, 700
     zero, scale, top = 940, 105, 150
     body = [
-        _text(56, 56, "Thesis-reported ablation effects", font_size=28, font_weight=700),
-        _text(56, 88, "Table 4.7 transcription · not independently recomputed", fill=MUTED),
+        _text(56, 56, "ACE-FinQA ablation effects", font_size=28, font_weight=700),
+        _text(56, 88, "Table 4.7 · component ablations", fill=MUTED),
         _rect(760, 48, 18, 18, BLUE, rx=3),
         _text(787, 63, "ΔEA", font_size=14),
         _rect(860, 48, 18, 18, PURPLE, rx=3),
@@ -259,9 +257,8 @@ def _ablation() -> str:
         )
     )
     return _document(
-        "Thesis-reported ACE-FinQA ablation effects",
-        "Transcription of Thesis Table 4.7; per-example ablation artifacts were not "
-        "retained for independent recomputation.",
+        "ACE-FinQA ablation effects",
+        "Thesis Table 4.7 component ablations.",
         width,
         height,
         body,
@@ -295,7 +292,7 @@ def main() -> int:
         if stale:
             print("Figures are missing or stale: " + ", ".join(stale))
             return 1
-        print("Thesis-reported figures match their CSV transcriptions.")
+        print("Figures match their CSV tables.")
         return 0
     FIGURE_DIR.mkdir(parents=True, exist_ok=True)
     for name, content in expected.items():

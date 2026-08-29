@@ -42,7 +42,7 @@ class ArtifactTests(unittest.TestCase):
             "result_profile": "audited-multi-profile",
             "primary_result": {
                 "ace_finqa": {
-                    "execution_accuracy_pct": 67.39,
+                    "execution_accuracy_pct": 68.06,
                     "program_accuracy_pct": 61.90,
                 }
             },

@@ -5,7 +5,7 @@
 This repository separates three different goals:
 
 1. **CPU validation** checks data shape, the fail-closed DSL implementation, prediction schemas, notebook cleanliness, and consistency of the thesis result record.
-2. **Result inspection** validates raw-count arithmetic, metric-profile separation, source hashes, known thesis discrepancies, and faithful transcription of the thesis tables.
+2. **Result inspection** validates raw-count arithmetic, source hashes, and faithful transcription of the thesis tables.
 3. **GPU experiment rerun** executes the Colab notebooks. Exact reproduction additionally requires immutable model revisions, a complete dependency lock, prompt/config hashes, and full environment metadata.
 
 ## CPU validation
@@ -54,7 +54,7 @@ The notebooks currently pin some high-risk compatibility packages but are not a 
 
 The cleaned rerun profile uses seed 42, Qwen3-8B in 4-bit NF4, a 4,096-token context, nine prompt examples, generator temperature 0, GPT-4o mini reflection at temperature 0 with JSON output, one pass over a target of 600 stratified training examples, a fixed 100-example mini-dev set, and at most three Verify-Iterate rounds. Verification requires both EA and PA. The evaluator fails closed and compares FinQA answers after rounding to five decimal places. Training starts from an empty playbook with no warm start or manual editing.
 
-This is not the exact observed historical run. Retained metadata records 2 completed epochs, a realized 594-example subset, 780 completed steps, GPT-4o reflection, at most 5 verification rounds, `verify_require_pa=false`, and an 8,192-token context; historical notebook output records BF16 loading. Both profiles are recorded in [`results/manifest.json`](../results/manifest.json); consult [`results/audit.md`](../results/audit.md) before attempting a reproduction.
+This is not the exact observed historical run. Retained metadata records 2 completed epochs, a realized 594-example subset, 780 completed steps, GPT-4o reflection, at most 5 verification rounds, `verify_require_pa=false`, and an 8,192-token context; historical notebook output records BF16 loading. Both profiles are recorded in [`results/manifest.json`](../results/manifest.json); consult it before attempting a reproduction.
 
 [`.env.example`](../.env.example) is a variable inventory only; the project
 does not auto-load `.env`. Export values into the process environment or use
@@ -68,7 +68,7 @@ Colab Secrets before running a notebook.
 4. Write output to a new run directory under `outputs/` or external storage. Never overwrite `results/`.
 5. Evaluate saved predictions with the repository CLI and the same thesis evaluation protocol before proposing a new publication record.
 
-The baseline notebook separates train/dev/test paths and uses the thesis FS-9 prompt. Its inline metrics are run diagnostics; audited results under `results/` remain unchanged unless a new result is deliberately reviewed and published with raw counts and an explicit metric profile.
+The baseline notebook separates train/dev/test paths and uses the thesis FS-9 prompt. Its inline metrics are run diagnostics; the published results under `results/` remain unchanged unless a new result is deliberately reviewed and published with raw counts and an explicit metric profile.
 
 ## ACE notebook
 

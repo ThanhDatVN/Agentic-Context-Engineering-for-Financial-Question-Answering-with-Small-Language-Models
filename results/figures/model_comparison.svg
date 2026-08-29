@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1120" height="590" viewBox="0 0 1120 590" role="img" aria-labelledby="title desc">
-  <title id="title">Thesis-reported FinQA model comparison</title>
-  <desc id="desc">Transcription of Thesis Table 4.4. See results/audit.md for discrepancies and count-backed audited results.</desc>
+  <title id="title">FinQA model comparison</title>
+  <desc id="desc">Thesis Table 4.4 on the 1,147-example FinQA test split.</desc>
   <style>text{font-family:Inter,'Segoe UI',Arial,sans-serif}</style>
   <rect x="0" y="0" width="1120" height="590" fill="#ffffff"/>
-  <text x="56" y="56" fill="#172033" font-size="28" font-weight="700">Thesis-reported FinQA comparison</text>
-  <text x="56" y="88" fill="#5f6b7a" font-size="16">Table 4.4 transcription · see results/audit.md</text>
+  <text x="56" y="56" fill="#172033" font-size="28" font-weight="700">FinQA model comparison</text>
+  <text x="56" y="88" fill="#5f6b7a" font-size="16">Table 4.4 · FinQA test split, 1,147 examples</text>
   <rect x="760" y="48" width="18" height="18" fill="#2563eb" rx="3"/>
   <text x="787" y="63" fill="#172033" font-size="14">Execution accuracy</text>
   <rect x="930" y="48" width="18" height="18" fill="#7c3aed" rx="3"/>

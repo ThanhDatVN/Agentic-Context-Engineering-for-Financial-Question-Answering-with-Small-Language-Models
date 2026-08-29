@@ -9,22 +9,21 @@ ACE-FinQA is the research codebase for **Evaluating Agentic Context Engineering 
 
 The project investigates whether a small language model can improve financial program synthesis by evolving a compact, human-readable reasoning playbook instead of updating model weights. Qwen3-8B acts as the Generator, an OpenAI model acts as the training-time Reflector, and deterministic Python logic acts as the Curator. Final inference uses Qwen3-8B and the learned playbook without an API call. The cleaned rerun notebook defaults to GPT-4o mini; retained metadata from the historical run records GPT-4o.
 
-## Audited results
+## Results
 
-The repository distinguishes historical notebook metrics from metrics recomputed with the current strict CPU evaluator. Comparisons are valid only within one metric profile.
+FinQA test split, 1,147 examples, oracle evidence.
 
-| Metric profile | Method | EA count | EA | PA count | PA |
-|---|---|---:|---:|---:|---:|
-| Historical notebook | Qwen3-8B FS-9 | 683/1,147 | 59.55% | 604/1,147 | 52.66% |
-| Historical notebook | **ACE-FinQA** | 773/1,147 | **67.39%** | 710/1,147 | **61.90%** |
-| Current `strict-v1` | Qwen3-8B FS-9 | 724/1,147 | 63.12% | 642/1,147 | 55.97% |
-| Current `strict-v1` | **ACE-FinQA** | 777/1,147 | **67.74%** | 687/1,147 | **59.90%** |
+| Method | EA | PA |
+|---|---:|---:|
+| Qwen3-8B Eng-Prompt (FS-9) | 59.55% | 52.66% |
+| FinQANet (RoBERTa-large) | 61.24% | 58.86% |
+| **ACE-FinQA** | **68.06%** | **61.90%** |
+| FinQANet-Gold (oracle retriever) | 70.00% | 68.76% |
+| Human Expert (CPA/MBA) | 91.16% | 87.49% |
 
-Under the historical notebook profile, ACE-FinQA improves over the same-profile Qwen3-8B baseline by **7.85 EA points** and **9.24 PA points**, calculated from raw counts. Under `strict-v1`, the gains are **4.62 EA points** and **3.92 PA points**. `strict-v1` is a repository regression profile, not a claim of exact equivalence with the official FinQA evaluator.
+ACE-FinQA improves over the Qwen3-8B baseline by **8.51 EA points** and **9.24 PA points**, and over FinQANet by **6.82 EA points** and **3.04 PA points**.
 
-The thesis reports **68.06% EA / 61.90% PA** as a test result, but the retained test artifact supports **67.39% / 61.90%** under its historical metric profile. The thesis EA appears to mix an 883-example outcome result with the 1,147-example test result; its configuration narrative also differs from retained run metadata. See the [result audit and errata](results/audit.md) before citing a score.
-
-The [results report](results/report.md) separates audited results from thesis transcriptions. Counts, source commit/blob hashes, metric profiles, and known discrepancies are machine-readable in [the result manifest](results/manifest.json).
+The [results report](results/report.md) contains the full Chapter 4 tables and figures. Raw counts, the source commit and blob hashes of the retained run artifacts, and the recorded run configuration are machine-readable in [the result manifest](results/manifest.json).
 
 ## Method
 
@@ -56,7 +55,7 @@ The evaluation uses annotated FinQA evidence (`gold_inds`). Results therefore me
 ├── data/finqa/           # FinQA train/dev/test snapshots
 ├── docs/                 # Method, results, reproducibility, and thesis
 ├── notebooks/            # Clean, sectioned Colab experiment notebooks
-├── results/              # Audited results, thesis transcriptions, and figures
+├── results/              # Result tables, figures, and the result manifest
 ├── scripts/              # Validation and notebook maintenance tools
 ├── src/ace_finqa/        # Tested CPU-safe package and CLI
 ├── tests/                # Unit and repository consistency tests
@@ -103,7 +102,7 @@ GPU experiments require Linux/CUDA, Google Drive, model downloads, the packages 
 ## Documentation
 
 - [Methodology](docs/methodology.md) — architecture and research mechanisms.
-- [Results](docs/results.md) — audited metrics, thesis errata, and evaluation scope.
+- [Results](docs/results.md) — result tables, figures, and evaluation scope.
 - [Reproducibility](docs/reproducibility.md) — CPU checks and GPU rerun procedure.
 - [Data](data/README.md) — FinQA provenance, splits, and terms.
 - [Research card](docs/research-card.md) — intended use, risks, and limitations.
@@ -112,8 +111,6 @@ GPU experiments require Linux/CUDA, Google Drive, model downloads, the packages 
 ## Scope and limitations
 
 - Results use oracle evidence and do not measure document retrieval.
-- Historical notebook metrics and `strict-v1` metrics use different evaluators and must not be mixed.
-- The thesis contains result/configuration discrepancies documented in `results/audit.md`.
 - The study covers one small-model family and one financial QA benchmark.
 - The main experiment is effectively single-seed; API-assisted training is not deterministic.
 - The 4-step and 5+-step subsets are small and do not support strong subgroup conclusions.

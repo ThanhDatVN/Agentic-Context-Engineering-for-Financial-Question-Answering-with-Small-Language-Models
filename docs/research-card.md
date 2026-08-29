@@ -29,7 +29,7 @@ The bundled data is the public FinQA benchmark derived from financial reports. N
 ## Mitigations in this repository
 
 - a fail-closed CPU DSL executor and tests for invalid references, percent literals, and table rows;
-- explicit separation of audited historical, `strict-v1`, and thesis-reported metrics;
+- a `strict-v1` regression evaluator with an explicitly labelled metric profile;
 - immutable result policy and provenance checklist;
 - stripped notebooks, secret policy, and CPU CI;
 - disclosure of oracle context, API-assisted training, and unsupported claims;
@@ -37,4 +37,4 @@ The bundled data is the public FinQA benchmark derived from financial reports. N
 
 ## Known evidence gaps
 
-The study covers one small language model and one benchmark. The main run is effectively single-seed, multi-step test buckets are small, data-contamination risk is unmeasured, and no expert user study is included. The thesis headline/result tables and configuration narrative also conflict with retained artifacts; see [`results/audit.md`](../results/audit.md). These gaps should be addressed before deployment or broad generalization.
+The study covers one small language model and one benchmark. The main run is effectively single-seed, multi-step test buckets are small, data-contamination risk is unmeasured, and no expert user study is included. These gaps should be addressed before deployment or broad generalization.

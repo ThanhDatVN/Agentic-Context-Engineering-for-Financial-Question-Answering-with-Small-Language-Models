@@ -7,7 +7,7 @@ Run in this order and always in a fresh runtime:
 1. [`01_qwen3_baseline.ipynb`](01_qwen3_baseline.ipynb) for baseline inference and diagnostics.
 2. [`02_ace_finqa.ipynb`](02_ace_finqa.ipynb) for ACE playbook training and final evaluation.
 
-Before execution, read [`docs/reproducibility.md`](../docs/reproducibility.md). Both notebooks assume a CUDA/Linux/Colab environment and external model downloads. ACE training additionally requires an OpenAI API key stored in Colab Secrets. Their committed defaults define a cleaned rerun profile in [`results/manifest.json`](../results/manifest.json); they do not exactly match the retained historical run metadata documented in [`results/audit.md`](../results/audit.md).
+Before execution, read [`docs/reproducibility.md`](../docs/reproducibility.md). Both notebooks assume a CUDA/Linux/Colab environment and external model downloads. ACE training additionally requires an OpenAI API key stored in Colab Secrets. Their committed defaults define a cleaned rerun profile in [`results/manifest.json`](../results/manifest.json); they do not exactly match the retained historical run metadata recorded in the same manifest.
 
 Experiment logic is organized into named sections. Large cells are split at safe top-level boundaries, configuration has one visible source of truth, and revision-history comments are removed. Code cells are capped at 320 lines because a few stateful functions cannot be split safely without a larger package refactor.
 

@@ -66,9 +66,9 @@ The experiment tracks multiple best snapshots (composite, EA-constrained, and PA
 
 ## Evaluation semantics
 
-Audited metrics, thesis transcriptions, and their distinct profiles are stored in `results/manifest.json` and `results/tables/`. Both cleaned notebooks now use fail-closed FinQA execution, exact table-row lookup, percent-literal conversion, and answer comparison after rounding to five decimal places. These changes improve future reruns but are not retroactive proof of the historical notebook metrics.
+The reported metrics and their raw counts are stored in `results/manifest.json` and `results/tables/`. Both cleaned notebooks use fail-closed FinQA execution, exact table-row lookup, percent-literal conversion, and answer comparison after rounding to five decimal places.
 
-The CPU package provides the `strict-v1` fail-closed evaluator for development and regression testing. It converts percent literals to decimals, resolves FinQA table row labels, rejects invalid references, and returns structured errors for malformed programs. Its output must be labeled `strict-v1`; it must not be mixed with historical notebook values or represented as an official FinQA leaderboard result.
+The CPU package provides the `strict-v1` fail-closed evaluator for development and regression testing. It converts percent literals to decimals, resolves FinQA table row labels, rejects invalid references, and returns structured errors for malformed programs. Its output must be labeled `strict-v1` and must not be represented as an official FinQA leaderboard result.
 
 ## What is reusable
 

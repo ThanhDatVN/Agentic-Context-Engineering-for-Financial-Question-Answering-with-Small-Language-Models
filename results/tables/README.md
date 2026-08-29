@@ -1,10 +1,9 @@
 # Thesis tables
 
-The audit table contains count-backed test metrics. The remaining CSV files reproduce the quantitative tables from Chapter 4 of [`docs/thesis.pdf`](../../docs/thesis.pdf); their percentages and deltas are stored exactly as reported and inherit the discrepancies documented in [`../audit.md`](../audit.md).
+These CSV files reproduce the quantitative tables from Chapter 4 of [`docs/thesis.pdf`](../../docs/thesis.pdf). Their percentages and deltas are stored exactly as reported.
 
 | Source | File | Description |
 |---|---|---|
-| Audit A.1 | [`table_a_1_audited_test_results.csv`](table_a_1_audited_test_results.csv) | Historical and `strict-v1` test results with raw counts |
 | 4.1 | [`table_4_1_qwen3_baseline_by_steps.csv`](table_4_1_qwen3_baseline_by_steps.csv) | Qwen3-8B baseline by program length |
 | 4.2 | [`table_4_2_qwen3_baseline_by_operator.csv`](table_4_2_qwen3_baseline_by_operator.csv) | Qwen3-8B baseline EA by first operation |
 | 4.3 | [`table_4_3_qwen3_baseline_error_classes.csv`](table_4_3_qwen3_baseline_error_classes.csv) | Qwen3-8B baseline error classes |

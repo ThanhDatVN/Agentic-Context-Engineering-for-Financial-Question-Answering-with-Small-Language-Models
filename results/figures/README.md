@@ -1,6 +1,6 @@
 # Thesis-reported figures
 
-These SVG charts are generated from the Chapter 4 CSV transcriptions and contain no independently entered values. They visualize what the thesis reports; they are not the audited primary result. Read [`../audit.md`](../audit.md) before citing them.
+These SVG charts are generated from the Chapter 4 CSV tables in [`../tables/`](../tables/) and contain no independently entered values. Regenerate them with `python scripts/generate_result_figures.py`.
 
 - [`model_comparison.svg`](model_comparison.svg) — Table 4.4 in thesis order;
 - [`complexity_gain.svg`](complexity_gain.svg) — Table 4.5 on the FinQA dev split;

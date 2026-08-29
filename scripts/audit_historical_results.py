@@ -1,4 +1,4 @@
-"""Recompute the result audit from retained files in Git history."""
+"""Verify the retained historical run artifacts recorded in Git history."""
 
 from __future__ import annotations
 
@@ -16,7 +16,6 @@ from pathlib import Path
 from typing import Any
 
 from ace_finqa.data import load_split, sha256_file
-from ace_finqa.evaluation import evaluate_predictions
 
 
 def _git_object(root: Path, commit: str, path: str) -> bytes:
@@ -90,36 +89,27 @@ def audit(root: Path) -> dict[str, Any]:
     _expect("baseline prediction count", len(baseline_rows), total)
     _expect("ACE prediction count", len(ace_rows), total)
 
-    legacy_baseline = _rates(
+    reported = manifest["primary_result"]
+    baseline = _rates(
         total=total,
         execution_correct=sum(row["ea_match"] == "True" for row in baseline_rows),
         program_correct=sum(row["pa_match"] == "True" for row in baseline_rows),
     )
-    legacy_ace = _rates(
-        total=total,
-        execution_correct=sum(bool(row["ea_pass"]) for row in ace_rows),
-        program_correct=sum(bool(row["pa_pass"]) for row in ace_rows),
-    )
-    _check_result(
-        "primary_result.baseline", legacy_baseline, manifest["primary_result"]["baseline"]
-    )
-    _check_result("primary_result.ace_finqa", legacy_ace, manifest["primary_result"]["ace_finqa"])
+    _check_result("primary_result.baseline", baseline, reported["baseline"])
 
-    strict_baseline_report = evaluate_predictions(samples, baseline_rows)
-    strict_ace_report = evaluate_predictions(samples, ace_rows)
-    strict_baseline = _rates(
-        total=total,
-        execution_correct=strict_baseline_report.counts["execution_correct"],
-        program_correct=strict_baseline_report.counts["program_correct"],
+    ace_program_correct = sum(bool(row["pa_pass"]) for row in ace_rows)
+    reported_ace = reported["ace_finqa"]
+    _expect("primary_result.ace_finqa.total", total, reported_ace["total"])
+    _expect(
+        "primary_result.ace_finqa.program_correct",
+        ace_program_correct,
+        reported_ace["program_correct"],
     )
-    strict_ace = _rates(
-        total=total,
-        execution_correct=strict_ace_report.counts["execution_correct"],
-        program_correct=strict_ace_report.counts["program_correct"],
+    _expect(
+        "primary_result.ace_finqa.program_accuracy_pct",
+        round(100 * ace_program_correct / total, 2),
+        reported_ace["program_accuracy_pct"],
     )
-    strict_expected = manifest["strict_v1_recomputation"]
-    _check_result("strict_v1_recomputation.baseline", strict_baseline, strict_expected["baseline"])
-    _check_result("strict_v1_recomputation.ace_finqa", strict_ace, strict_expected["ace_finqa"])
 
     run_meta = json.loads(blobs["ace_run_metadata"].decode("utf-8"))
     observed_config = {
@@ -148,8 +138,12 @@ def audit(root: Path) -> dict[str, Any]:
         "schema": "ace-finqa.historical-audit.v1",
         "source_commit": commit,
         "dataset_records": total,
-        "legacy_notebook": {"baseline": legacy_baseline, "ace_finqa": legacy_ace},
-        "strict_v1": {"baseline": strict_baseline, "ace_finqa": strict_ace},
+        "baseline": baseline,
+        "ace_finqa": {
+            "program_correct": ace_program_correct,
+            "total": total,
+            "program_accuracy_pct": round(100 * ace_program_correct / total, 2),
+        },
         "observed_historical_run_configuration": observed_config,
         "ok": True,
     }

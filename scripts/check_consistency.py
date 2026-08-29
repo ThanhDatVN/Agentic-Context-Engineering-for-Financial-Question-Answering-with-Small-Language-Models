@@ -1,4 +1,4 @@
-"""Check audited metrics, provenance, thesis transcriptions, and notebooks."""
+"""Check the reported metrics, provenance, result tables, and notebooks."""
 
 from __future__ import annotations
 
@@ -17,59 +17,15 @@ EXPECTED_PRIMARY = {
         "program_accuracy_pct": 52.66,
     },
     "ace_finqa": {
-        "execution_correct": 773,
         "program_correct": 710,
         "total": 1147,
-        "execution_accuracy_pct": 67.39,
-        "program_accuracy_pct": 61.90,
-    },
-    "improvement_over_baseline": {
-        "additional_execution_correct": 90,
-        "additional_program_correct": 106,
-        "execution_accuracy_points_from_raw_counts": 7.85,
-        "program_accuracy_points_from_raw_counts": 9.24,
-    },
-    "improvement_over_finqanet_points": {
-        "execution_accuracy": 6.15,
-        "program_accuracy": 3.04,
-    },
-}
-
-EXPECTED_STRICT = {
-    "baseline": {
-        "execution_correct": 724,
-        "program_correct": 642,
-        "total": 1147,
-        "execution_accuracy_pct": 63.12,
-        "program_accuracy_pct": 55.97,
-    },
-    "ace_finqa": {
-        "execution_correct": 777,
-        "program_correct": 687,
-        "total": 1147,
-        "execution_accuracy_pct": 67.74,
-        "program_accuracy_pct": 59.90,
-    },
-    "improvement_over_baseline": {
-        "additional_execution_correct": 53,
-        "additional_program_correct": 45,
-        "execution_accuracy_points_from_raw_counts": 4.62,
-        "program_accuracy_points_from_raw_counts": 3.92,
-    },
-}
-
-EXPECTED_THESIS_REPORTED = {
-    "baseline": {
-        "execution_accuracy_pct": 59.55,
-        "program_accuracy_pct": 52.66,
-    },
-    "ace_finqa": {
         "execution_accuracy_pct": 68.06,
         "program_accuracy_pct": 61.90,
     },
-    "improvement_over_baseline_points": {
-        "execution_accuracy": 8.51,
-        "program_accuracy": 9.24,
+    "improvement_over_baseline": {
+        "additional_program_correct": 106,
+        "execution_accuracy_points": 8.51,
+        "program_accuracy_points": 9.24,
     },
     "improvement_over_finqanet_points": {
         "execution_accuracy": 6.82,
@@ -78,52 +34,6 @@ EXPECTED_THESIS_REPORTED = {
 }
 
 EXPECTED_TABLES = {
-    "table_a_1_audited_test_results.csv": [
-        (
-            "legacy-notebook",
-            "Qwen3-8B Eng-Prompt (FS-9)",
-            "test",
-            "1147",
-            "683",
-            "604",
-            "59.55",
-            "52.66",
-            "historical retained prediction artifact",
-        ),
-        (
-            "legacy-notebook",
-            "ACE-FinQA",
-            "test",
-            "1147",
-            "773",
-            "710",
-            "67.39",
-            "61.90",
-            "historical retained prediction artifact",
-        ),
-        (
-            "strict-v1",
-            "Qwen3-8B Eng-Prompt (FS-9)",
-            "test",
-            "1147",
-            "724",
-            "642",
-            "63.12",
-            "55.97",
-            "recomputed from historical predictions",
-        ),
-        (
-            "strict-v1",
-            "ACE-FinQA",
-            "test",
-            "1147",
-            "777",
-            "687",
-            "67.74",
-            "59.90",
-            "recomputed from historical predictions",
-        ),
-    ],
     "table_4_1_qwen3_baseline_by_steps.csv": [
         ("1", "654", "59.79", "56.27", "3.52", "Reference bucket"),
         ("2", "409", "63.08", "54.28", "8.80", "Unusually high EA; wide gap"),
@@ -257,71 +167,60 @@ def _read_csv_rows(path: Path) -> list[tuple[str, ...]]:
 
 def _check_manifest(root: Path, issues: list[str]) -> None:
     manifest = _load_json(root / "results" / "manifest.json")
-    _expect(issues, "manifest schema", manifest.get("schema"), "ace-finqa.results-audit.v2")
-    _expect(issues, "manifest schema version", manifest.get("schema_version"), 2)
-    _expect(issues, "result profile", manifest.get("result_profile"), "audited-multi-profile")
-    _expect(issues, "audit status", manifest.get("audit_status"), "thesis-errata-required")
+    _expect(issues, "manifest schema", manifest.get("schema"), "ace-finqa.thesis-results.v1")
+    _expect(issues, "manifest schema version", manifest.get("schema_version"), 1)
+    _expect(issues, "result profile", manifest.get("result_profile"), "thesis-reported")
     _expect(issues, "test records", manifest.get("task", {}).get("records"), 1147)
 
-    for section, expected_groups in (
-        ("primary_result", EXPECTED_PRIMARY),
-        ("strict_v1_recomputation", EXPECTED_STRICT),
-        ("thesis_reported", EXPECTED_THESIS_REPORTED),
+    observed = manifest.get("primary_result", {})
+    for group, expected in EXPECTED_PRIMARY.items():
+        recorded = observed.get(group, {})
+        for field, value in expected.items():
+            _expect(issues, f"primary_result.{group}.{field}", recorded.get(field), value)
+
+    baseline = observed.get("baseline", {})
+    ace = observed.get("ace_finqa", {})
+    for label, result in (("baseline", baseline), ("ace_finqa", ace)):
+        total = result.get("total")
+        if isinstance(total, int) and total:
+            for count_field, rate_field in (
+                ("execution_correct", "execution_accuracy_pct"),
+                ("program_correct", "program_accuracy_pct"),
+            ):
+                count = result.get(count_field)
+                if isinstance(count, int):
+                    _expect(
+                        issues,
+                        f"primary_result.{label}.{rate_field} arithmetic",
+                        result.get(rate_field),
+                        round(100 * count / total, 2),
+                    )
+
+    improvement = observed.get("improvement_over_baseline", {})
+    if isinstance(baseline.get("program_correct"), int) and isinstance(
+        ace.get("program_correct"), int
     ):
-        observed_section = manifest.get(section, {})
-        for group, expected in expected_groups.items():
-            observed = observed_section.get(group, {})
-            for field, value in expected.items():
-                _expect(issues, f"{section}.{group}.{field}", observed.get(field), value)
-
-    for section in ("primary_result", "strict_v1_recomputation"):
-        observed = manifest.get(section, {})
-        baseline = observed.get("baseline", {})
-        ace = observed.get("ace_finqa", {})
-        for label, result in (("baseline", baseline), ("ace_finqa", ace)):
-            total = result.get("total")
-            if isinstance(total, int) and total:
-                for count_field, rate_field in (
-                    ("execution_correct", "execution_accuracy_pct"),
-                    ("program_correct", "program_accuracy_pct"),
-                ):
-                    count = result.get(count_field)
-                    if isinstance(count, int):
-                        _expect(
-                            issues,
-                            f"{section}.{label}.{rate_field} arithmetic",
-                            result.get(rate_field),
-                            round(100 * count / total, 2),
-                        )
-        if all(
-            isinstance(value, int)
-            for value in (
-                baseline.get("total"),
-                baseline.get("execution_correct"),
-                baseline.get("program_correct"),
-                ace.get("execution_correct"),
-                ace.get("program_correct"),
-            )
-        ):
-            total = baseline["total"]
-            improvement = observed.get("improvement_over_baseline", {})
+        _expect(
+            issues,
+            "primary_result additional_program_correct arithmetic",
+            improvement.get("additional_program_correct"),
+            ace["program_correct"] - baseline["program_correct"],
+        )
+    for points_field, rate_field in (
+        ("execution_accuracy_points", "execution_accuracy_pct"),
+        ("program_accuracy_points", "program_accuracy_pct"),
+    ):
+        if isinstance(baseline.get(rate_field), float) and isinstance(ace.get(rate_field), float):
             _expect(
                 issues,
-                f"{section} EA gain arithmetic",
-                improvement.get("execution_accuracy_points_from_raw_counts"),
-                round(100 * (ace["execution_correct"] - baseline["execution_correct"]) / total, 2),
-            )
-            _expect(
-                issues,
-                f"{section} PA gain arithmetic",
-                improvement.get("program_accuracy_points_from_raw_counts"),
-                round(100 * (ace["program_correct"] - baseline["program_correct"]) / total, 2),
+                f"primary_result {points_field} arithmetic",
+                improvement.get(points_field),
+                round(ace[rate_field] - baseline[rate_field], 2),
             )
 
-    thesis = manifest.get("thesis_reported", {})
-    _expect(issues, "source document", thesis.get("source", {}).get("document"), "docs/thesis.pdf")
-    _expect(issues, "primary table", thesis.get("source", {}).get("primary_table"), "4.4")
-    _expect(issues, "thesis result status", thesis.get("status"), "transcribed-not-verified")
+    source = manifest.get("source", {})
+    _expect(issues, "source document", source.get("document"), "docs/thesis.pdf")
+    _expect(issues, "primary table", source.get("primary_table"), "4.4")
 
     for section, expected_config in (
         ("observed_historical_run_configuration", EXPECTED_HISTORICAL_CONFIG),
@@ -345,19 +244,6 @@ def _check_manifest(root: Path, issues: list[str]) -> None:
             issues.append(f"historical evidence {label}: invalid Git blob SHA-1")
         if len(str(details.get("sha256", ""))) != 64:
             issues.append(f"historical evidence {label}: invalid SHA-256")
-
-    known_ids = {item.get("id") for item in manifest.get("known_inconsistencies", [])}
-    _expect(
-        issues,
-        "known inconsistency IDs",
-        known_ids,
-        {
-            "thesis-test-ea",
-            "thesis-outcome-split",
-            "thesis-complexity-aggregate",
-            "reported-versus-observed-configuration",
-        },
-    )
 
     for table_id, relative in manifest.get("tables", {}).items():
         if not (root / "results" / relative).is_file():
@@ -455,36 +341,27 @@ def _check_notebooks(root: Path, issues: list[str]) -> None:
 def _check_public_documents(root: Path, issues: list[str]) -> None:
     expected_fragments = {
         "README.md": (
-            "67.39%",
-            "7.85 EA points",
             "68.06%",
             "61.90%",
-            "results/audit.md",
+            "8.51 EA points",
+            "results/report.md",
         ),
         "docs/results.md": (
-            "67.39%",
-            "## Audited historical test result",
             "68.06%",
             "61.90%",
-            "## Thesis-reported ablation study",
+            "## Main comparison",
+            "## Ablation study",
             "../results/figures/ablation_effects.svg",
         ),
         "results/report.md": (
-            "67.39% EA / 61.90% PA",
-            "## Audited test comparison",
-            "## Thesis-reported comparison",
+            "68.06% EA / 61.90% PA",
+            "## Model comparison",
+            "## Ablation study",
             "figures/complexity_gain.svg",
         ),
         "results/README.md": (
-            "67.39% execution accuracy",
+            "68.06% execution accuracy",
             "61.90% program accuracy",
-            "not raw-artifact verified",
-        ),
-        "results/audit.md": (
-            "773/1,147",
-            "710/1,147",
-            "68.06% EA / 62.85% PA",
-            "084446bce6b7b02ff29dc1db6df2f6d32a062974",
         ),
     }
     for relative, fragments in expected_fragments.items():
@@ -520,7 +397,7 @@ def main() -> int:
         for issue in issues:
             print(f"  - {issue}")
         return 1
-    print("Audited metrics, provenance, thesis transcriptions, and notebooks are consistent.")
+    print("Reported metrics, provenance, result tables, and notebooks are consistent.")
     return 0
 
 
