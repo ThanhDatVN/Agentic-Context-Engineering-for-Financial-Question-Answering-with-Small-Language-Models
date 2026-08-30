@@ -40,4 +40,4 @@ ACE-FinQA uses an OpenAI model as a training-time Reflector: GPT-4o in the retai
 
 ## Thesis
 
-`docs/thesis.pdf` is an original academic work by Lê Thành Đạt and is not covered by the FinQA MIT License. It remains All Rights Reserved unless the author states otherwise.
+`docs/thesis.pdf` is an original academic work by Lê Thành Đạt. It is not covered by the FinQA MIT License, nor by the MIT License that this repository applies to its own source code; all rights to the thesis document remain with the author.

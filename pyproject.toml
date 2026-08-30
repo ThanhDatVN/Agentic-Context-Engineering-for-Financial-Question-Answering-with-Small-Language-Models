@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "CPU-safe FinQA parsing, evaluation, and artifact verification for ACE-FinQA"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "LicenseRef-Proprietary"
+license = "MIT"
 license-files = ["LICENSE"]
 authors = [{name = "Lê Thành Đạt"}]
 dependencies = []

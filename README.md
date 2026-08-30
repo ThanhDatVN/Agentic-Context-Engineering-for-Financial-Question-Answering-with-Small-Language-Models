@@ -3,9 +3,11 @@
 [![CI](https://github.com/ThanhDatVN/Agentic-Context-Engineering-for-Financial-Question-Answering-with-Small-Language-Models/actions/workflows/ci.yml/badge.svg)](https://github.com/ThanhDatVN/Agentic-Context-Engineering-for-Financial-Question-Answering-with-Small-Language-Models/actions/workflows/ci.yml)
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-3776AB.svg)](https://www.python.org/)
 [![Research: FinQA](https://img.shields.io/badge/research-FinQA-6f42c1.svg)](https://github.com/czyssrs/FinQA)
-[![License: All Rights Reserved](https://img.shields.io/badge/license-All%20Rights%20Reserved-lightgrey.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ACE-FinQA is the research codebase for **Evaluating Agentic Context Engineering for Small Language Models on Financial Reasoning Tasks (FinQA)**, an undergraduate thesis by Lê Thành Đạt at the University of Engineering and Technology, Vietnam National University, Hanoi.
+
+📄 **[Read the full thesis (PDF)](docs/thesis.pdf)** · [Results](results/report.md) · [Methodology](docs/methodology.md) · [Reproducibility](docs/reproducibility.md)
 
 The project investigates whether a small language model can improve financial program synthesis by evolving a compact, human-readable reasoning playbook instead of updating model weights. Qwen3-8B acts as the Generator, an OpenAI model acts as the training-time Reflector, and deterministic Python logic acts as the Curator. Final inference uses Qwen3-8B and the learned playbook without an API call. The cleaned rerun notebook defaults to GPT-4o mini; retained metadata from the historical run records GPT-4o.
 
@@ -64,7 +66,7 @@ The evaluation uses annotated FinQA evidence (`gold_inds`). Results therefore me
 
 ## Quick start
 
-For the author and authorized collaborators, the CPU package validates data, executes the FinQA DSL, evaluates prediction files, and checks repository artifacts. It does not download a model or call an external API. Review [`LICENSE`](LICENSE) before using original project materials.
+The CPU package validates data, executes the FinQA DSL, evaluates prediction files, and checks repository artifacts. It does not download a model or call an external API.
 
 ```bash
 python -m venv .venv
@@ -122,4 +124,4 @@ Use [`CITATION.cff`](CITATION.cff) when citing this repository. The thesis is av
 
 FinQA data originates from the [official FinQA repository](https://github.com/czyssrs/FinQA) and remains under its upstream MIT terms; see [`data/README.md`](data/README.md) and [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
-Original ACE-FinQA code and thesis materials are **All Rights Reserved** unless the copyright holder grants separate permission. Third-party materials remain under their respective licenses.
+Original ACE-FinQA code is released under the [MIT License](LICENSE). `docs/thesis.pdf` is the author's academic work and is not covered by that grant. Third-party materials remain under their respective licenses.

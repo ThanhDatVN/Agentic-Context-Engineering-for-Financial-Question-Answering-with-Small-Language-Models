@@ -2,8 +2,8 @@
 
 Thank you for improving ACE-FinQA. Changes should keep the result record reproducible, make evaluation semantics explicit, keep the result tables faithful to the thesis, and separate GPU/API experiments from CPU validation.
 
-The repository is currently All Rights Reserved. This guide does not grant
-permission to copy, modify, or redistribute its original materials. Contact the
+The original code is released under the [MIT License](LICENSE); `docs/thesis.pdf`
+is not covered by that grant. Contact the
 copyright holder for written authorization before preparing a contribution;
 authorized contributions may then follow the workflow below.
 

@@ -6,6 +6,7 @@ version: "0.1.0"
 authors:
   - family-names: "Lê"
     given-names: "Thành Đạt"
+license: MIT
 repository-code: "https://github.com/ThanhDatVN/Agentic-Context-Engineering-for-Financial-Question-Answering-with-Small-Language-Models"
 url: "https://github.com/ThanhDatVN/Agentic-Context-Engineering-for-Financial-Question-Answering-with-Small-Language-Models"
 abstract: >-
