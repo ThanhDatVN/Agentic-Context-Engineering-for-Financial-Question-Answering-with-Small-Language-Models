@@ -2,7 +2,7 @@
 # The Colab bootstrap cells in notebooks/ are authoritative because CUDA-specific
 # wheels and install order cannot be represented safely in a cross-platform lock.
 # Do not install this file into a CPU-only development environment.
-torch==2.8.0
+torch==2.13.0
 triton>=3.3.0
 xformers==0.0.32.post2
 unsloth==2025.10.11
